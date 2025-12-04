@@ -1,0 +1,153 @@
+<!-- src/main/resources/templates/adminInquiry/adminInquiry.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의사항</title>
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <link rel="stylesheet" href="/admincss/adminInquiry.css">
+</head>
+<body>
+<div th:replace="~{adminHeader :: header}"></div>
+<div th:replace="~{adminSidebar :: sidebar}"></div>
+
+<main id="container">
+    <h3 class="main_title">문의사항</h3>
+
+    <!-- 검색/필터 -->
+    <form class="admin_tot_srch_box"
+          th:action="@{/AdminInquiry}"
+          method="get">
+
+        <div class="admin_totCnt_box">
+            <p>
+                Total :
+                <span id="admin_tot_cnt"
+                      th:text="${totalCount}">0</span> 건
+            </p>
+            <select id="admin_row_select" name="size">
+                <option value="10" th:selected="${size == 10}">10</option>
+                <option value="20" th:selected="${size == 20}">20</option>
+                <option value="30" th:selected="${size == 30}">30</option>
+            </select>
+            <span>건씩 보기</span>
+        </div>
+
+        <!-- 상태 선택 -->
+        <div class="inquiry_srch_status">
+            <input type="radio" id="inquiry_all" name="inquiry_status" value="전체"
+                   th:checked="${status == null or status == '전체'}">
+            <label for="inquiry_all">전체</label>
+
+            <!-- ✅ value 는 '대기', 라벨만 '답변대기'로 표시 -->
+            <input type="radio" id="inquiry_wait" name="inquiry_status" value="대기"
+                   th:checked="${status == '대기'}">
+            <label for="inquiry_wait">답변대기</label>
+
+            <input type="radio" id="inquiry_done" name="inquiry_status" value="답변완료"
+                   th:checked="${status == '답변완료'}">
+            <label for="inquiry_done">답변완료</label>
+        </div>
+
+        <!-- 제목 검색 -->
+        <div class="admin_srch_field">
+            <input type="text"
+                   name="inquiry_keyword"
+                   class="admin_srch_input"
+                   placeholder="문의사항 제목을 입력해 주세요."
+                   th:value="${keyword}">
+            <button type="submit" class="admin_srch_icon">
+                <img src="/images/srchImg.png" alt="검색">
+            </button>
+        </div>
+    </form>
+
+    <!-- 목록 테이블 -->
+    <div id="admin_inquiry_box" class="admin_table_box">
+        <table id="admin_inquiry_table" class="admin_table_cont">
+            <thead>
+            <tr>
+                <th style="width: 60px;">No.</th>
+                <th style="width: 180px;">회원명(회원아이디)</th>
+                <th style="width: 280px;">제목</th>
+                <th style="width: 120px;">작성일</th>
+                <th style="width: 100px;">답변상태</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(inquiries)}">
+                <td colspan="5">등록된 문의가 없습니다.</td>
+            </tr>
+
+            <tr th:each="inq, stat : ${inquiries}">
+                <td th:text="${totalCount - ((page - 1) * size + stat.index)}">1</td>
+
+                <td>
+                    <span th:text="${inq.userName}">홍길동</span>
+                    <span th:text="${' (' + inq.username + ')'}">(hong)</span>
+                </td>
+
+                <td>
+                    <a th:href="@{/AdminInquiry/AdminInquiryReply/{id}(id=${inq.inquiryId})}"
+                       th:text="${inq.title}">
+                        문의 제목
+                    </a>
+                </td>
+
+                <td th:text="${#temporals.format(inq.createdAt, 'yyyy-MM-dd')}">
+                    2025-11-26
+                </td>
+
+                <td th:text="${inq.status}">
+                    답변대기
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 페이징 -->
+    <div id="pagination" class="paging_btn" th:if="${totalPages > 1}">
+        <!-- 이전 버튼 -->
+        <a th:if="${page > 1}"
+           th:href="@{/AdminInquiry(page=${page-1},
+                            size=${size},
+                            inquiry_status=${status},
+                            inquiry_keyword=${keyword})}">
+            이전
+        </a>
+
+        <!-- 페이지 번호 -->
+        <span th:each="p : ${#numbers.sequence(startPage, endPage)}">
+  <a th:href="@{/AdminInquiry(page=${p},
+                              size=${size},
+                              inquiry_status=${status},
+                              inquiry_keyword=${keyword})}"
+     th:text="${p}"
+     th:classappend="${p == page} ? ' active'">
+      1
+  </a>
+</span>
+
+        <!-- 다음 버튼 -->
+        <a th:if="${page < totalPages}"
+           th:href="@{/AdminInquiry(page=${page+1},
+                            size=${size},
+                            inquiry_status=${status},
+                            inquiry_keyword=${keyword})}">
+            다음
+        </a>
+    </div>
+</main>
+
+<div th:replace="~{adminFooter :: footer}"></div>
+
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<script src="/adminjs/adminInquiry.js"></script>
+</body>
+</html>

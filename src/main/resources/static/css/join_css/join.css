@@ -1,0 +1,332 @@
+/* ===== 이용약관동의 ===== */
+.join-container {
+    max-width: 700px ;
+    min-width: 500px ;
+    margin: 50px auto ;
+    margin-left: 640px;
+    background: #ffffff ;
+    border-radius: 10px;
+    border: 1px solid #3b6e91;
+    padding: 40px 50px ;
+    height: auto;
+    align-items: center;
+}
+
+.join-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color:  #24323a;
+}
+
+.agree-section {
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+
+}
+
+.agree-section h3 {
+    font-size: 16px;
+    color:  #24323a;
+    margin-bottom: 10px;
+}
+
+.agree-box {
+    height: 90px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 6px;
+    background: #fafafa;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.agree-check {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.final-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 15px;
+    margin: 25px 0;
+}
+
+.signup-buttons {
+    text-align: center;
+    margin-top: 30px;
+
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.signup-buttons button {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.signup-buttons .next {
+    background:#3b6e91;
+    color: #fff;
+}
+
+.signup-buttons .next:hover {
+    background:#274e66;
+}
+
+.signup-buttons .cancel {
+    background: #ddd;
+    color: #333;
+}
+
+.signup-buttons .cancel:hover {
+    background: #ccc;
+}
+
+.required
+{
+    color: rgb(219, 72, 72);
+    display: inline;
+}
+
+
+/* ===== 회원정보등록 ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+label {
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.field {
+    margin-bottom: 10px;
+}
+
+.field-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.field-inline input {
+    flex: 1;
+}
+
+.check-btn {
+    background: #777;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.check-btn:hover {
+    background: #555;
+}
+
+.hint {
+    font-size: 13px;
+    color: #2f7a32;
+    margin-top: 3px;
+}
+
+.gender {
+    display: flex;
+    gap: 10px;
+}
+
+.gender label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: normal;
+}
+
+.signup-buttons {
+    text-align: center;
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.signup-buttons button {
+    padding: 10px 35px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition:  0.3s;
+}
+
+.signup-buttons .next  {
+    background:#3b6e91;
+    color: #fff;
+}
+
+.signup-buttons .next:hover  {
+    background:  #274e66;
+}
+
+.signup-buttons .cancel  {
+    background: #ddd;
+    color: #333;
+}
+
+.signup-buttons .cancel:hover{
+    background: #ccc;
+}
+
+.hint {
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+.hint.ok {
+    color: green;
+}
+.hint.error {
+    color: red;
+}
+
+
+
+/* ===== 회원가입 완료 ===== */
+.imgPosition
+{
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.profileImg{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid #3b6e91;;
+    object-fit: cover;
+    margin: auto;
+    margin-top: 60px;
+}
+
+
+.text{
+    margin: auto;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.signup-buttons .login-btn {
+    background:#3b6e91 ;
+    color: #fff;
+}
+
+.signup-buttons .login-btn:hover {
+    background: #274e66;
+}
+
+.signup-buttons .home-btn {
+    background: #ddd;
+    color:  #333333;
+}
+
+.signup-buttons .home-btn:hover {
+    background: #ccc;
+}
+
+
+
+/*회원 정보 수정*/
+
+.join-container1{
+    max-width: 800px;
+    min-width: 700px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #3b6e91;
+    padding: 40px 50px;
+    margin-left: 200px;
+    height: inherit;
+
+
+}
+
+.join-container1 h1
+{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container{
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.main1 {
+    flex-grow: 1;
+    padding: 20px 0;
+}
+
+#joinForm
+{
+
+    height: auto;
+    min-height: auto;
+}
+
+
+.join-container1 .signup-buttons {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.field.error input {
+    border-color: #ff4b4b;
+}
+
+.field .hint {
+    font-size: 12px;
+    color: #777;
+}
+
+.field.error .hint {
+    color: #ff4b4b;
+}

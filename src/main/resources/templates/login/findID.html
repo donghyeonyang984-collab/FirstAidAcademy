@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <section class="common-section">
+        <div class="form-box">
+
+            <div class="text-box">
+                <h2>아이디 찾기</h2>
+                아이디 찾기를 위해 아래 정보를<br>정확하게 입력해주세요
+            </div>
+
+            <form th:action="@{/login/findid}" method="post" th:object="${findIdForm}">
+
+            <!-- 이름 -->
+                <div class="field">
+                    <label for="name">이름 <span class="required">*</span></label>
+                    <input type="text" id="name" th:field="*{name}" placeholder="홍길동" required />
+                </div>
+
+                <!-- 생년월일 -->
+                <div class="field">
+                    <label for="birth">생년월일 <span class="required">*</span></label>
+                    <input type="text" id="birth" th:field="*{birth}"
+                           placeholder="20051107 (숫자 8자리)" maxlength="8" required />
+                </div>
+
+                <p class="error" th:if="${error}" th:text="${error}"></p>
+
+                <div class="findBtn">
+                    <button type="submit" class="common-btn1">아이디 찾기</button>
+                </div>
+            </form>
+
+
+
+
+        </div>
+    </section>
+
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+/* 카테고리 선택창 */
+.eduList_srch_status {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #d0d7e2;
+  border-radius: 5px;
+  padding: 8px 25px;
+  background-color: #fefefe;
+  font-size: 15px;
+  margin-right: -300px;
+}
+
+.eduList_srch_status label {
+  color: #333;
+  cursor: pointer;
+  /* 글자 가운데로 정렬 */
+  padding-right: 12px;
+}
+
+.eduList_srch_status input {
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: -2px;
+  accent-color: #4a7dfc;
+}
+
+/* js에 있음 */
+/* 교육 자료 제목, 카테고리 묶음 */
+.edu_title_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+/* 카테고리 표시 */
+.edu_category {
+  font-size: 13px;
+  color: #2b6cb0;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* 제목, pdf 파일 링크 스타일 */
+.edu_link, .edufile_link {
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+.edu_link:hover,
+.edufile_link:hover {
+  text-decoration: underline;
+  color: #2b6cb0;
+}
+.paging_btn .paging_disabled {
+    color: #ccc;
+    cursor: default;
+}
+.paging_btn a {
+    text-decoration: none;
+    margin: 0 4px;
+}
+.paging_btn span {
+    margin: 0 4px;
+}

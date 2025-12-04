@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 관리</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 회원 목록 전용 -->
+    <link rel="stylesheet" href="/admincss/adminUser.css">
+</head>
+
+<body>
+ <!-- 헤더(헤더 css) -->
+    <div th:replace="~{adminHeader :: header}"></div>
+    <!-- 사이드바(사이드바 css, 공통 js) -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+    <!-- 메인(공통 css) -->
+    <main id="container">
+        <!-- 맨 위 타이틀(공통 css) -->
+        <h3 class="main_title">회원관리</h3>
+        <div class="admin_tot_srch_box">
+            <div class="admin_totCnt_box">
+                <p>Total : <span id="admin_tot_cnt"></span> 건</p>
+                <select id="admin_row_select">
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+                <span>건씩 보기</span>
+            </div>
+            <!-- 회원 검색 (공통 css) -->
+            <div class="admin_srch_field">
+                <input type="text" name="user_keyword" class="admin_srch_input" placeholder="회원의 이름 및 아이디를 입력해 주세요.">
+                <button type="submit" class="admin_srch_icon">
+                    <img src="/images/srchImg.png" alt="검색">
+                </button>
+            </div>
+        </div>
+        <!-- 회원 목록 테이블 (공통 css) -->
+        <div id="admin_user_box" class="admin_table_box">
+            <table id="admin_user_table" class="admin_table_cont">
+                <thead>
+                    <tr>
+                        <th style="width: 70px;">No.</th>
+                        <th style="width: 250px;">회원명(회원아이디)</th>
+                        <th style="width: 290px;">이메일</th>
+                        <th style="width: 180px;">휴대전화</th>
+                        <th style="width: 140px;">생년월일</th>
+                        <th style="width: 290px;">주소</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- js에서 더미데이터 사용(화면 확인용) -->
+                </tbody>
+            </table>
+        </div>
+        <!-- 회원 목록 페이징 버튼(공통 css,js) -->
+        <div id="pagination" class="paging_btn"></div>
+
+        <!-- 회원 수강 정보 모달(공통 css) -->
+        <div id="aUser_detail" class="admin_modal">
+            <div class="admin_modal_cont">
+                <span class="modal_close_btn">&times;</span>
+                <h3>회원 수강 정보</h3>
+                <div class="modal_header">
+                    <p class="dm_user_name">회원명: <span id="dm_user_name"></span></p>
+                    <div class="game_progress_wrap">
+                        <p class="game_progress_text">게임 진행도: </p>
+                        <div class="game_progress_bar">
+                            <div class="game_progress_fill" style="width: 100%;"></div>
+                            <span class="bar_divider"></span>
+                            <span class="bar_divider"></span>
+                            <span class="bar_divider"></span>
+                        </div>
+                        <span class="game_progress_text">1 / 4 클리어</span>
+                        <button id="game_cert_btn">게임 이수증 발급</button>
+                    </div>
+                </div>
+                <table id="aUser_detail_table">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px;">No.</th>
+                            <th>과정명</th>
+                            <th style="width: 160px;">학습시작</th>
+                            <th style="width: 160px;">학습종료</th>
+                            <th style="width: 90px;">진도</th>
+                            <th style="width: 90px;">총점</th>
+                            <th style="width: 90px;">상태</th>
+                            <th style="width: 140px;">이수증</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- js에서 더미데이터 사용(화면 확인용) -->
+                    </tbody>
+                </table>
+                <!-- 회원 목록 페이징 버튼(공통 css,js) -->
+                <div id="modal_pagination" class="paging_btn"></div>
+            </div>
+        </div>
+
+    </main>
+
+     <!-- 푸터(푸터 css) -->
+    <div th:replace="~{adminFooter :: footer}"></div>
+</body>
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 회원 목록 전용 js -->
+<script src="/adminjs/adminUser.js"></script>
+
+</html>

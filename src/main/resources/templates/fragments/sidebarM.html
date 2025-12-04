@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="sidebar">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            나의 강의실
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <div class="sidebar-item">
+                <a th:href="@{/myPage/myStudy.html}">나의 학습활동</a>
+                <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+
+            <div class="sidebar-item">
+                <a th:href="@{/myPage/question.html}">문의사항</a>
+                <i class="fa-solid fa-comments"></i>
+            </div>
+
+            <div class="sidebar-item">
+                <a th:href="@{/myPage/courseList.html}">수강 목록</a>
+                <i class="fa-solid fa-list-check"></i>
+            </div>
+
+            <div class="sidebar-item">
+                <a th:href="@{/myPage/completion.html}">수료 목록</a>
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+
+            <div class="sidebar-item">
+                <a th:href="@{/myPage/nonCompletion.html}">미수료 목록</a>
+                <i class="fa-regular fa-circle-xmark"></i>
+            </div>
+
+            <div class="sidebar-item">
+                <a th:href="@{/myPage/infoModify.html}">회원정보 수정</a>
+                <i class="fa-solid fa-user-pen"></i>
+            </div>
+
+        </nav>
+    </aside>
+
+</th:block>
+
+</body>
+</html>

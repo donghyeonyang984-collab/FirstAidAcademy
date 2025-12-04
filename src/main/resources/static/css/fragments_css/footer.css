@@ -1,0 +1,53 @@
+/* ===== 푸터 ===== */
+.site-footer {
+  background: #3b4a64;
+  color: #d8e2e9;
+  padding: 60px 5% 40px;
+  font-size: 0.95rem;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.footer-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.footer-logo .brand-main { color: #3b6e91; }
+.footer-logo .brand-sub { color: #86a6ba; margin-left: 6px; }
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+
+.footer-links a {
+  color: #d8e2e9;
+  text-decoration: none;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: color 0.25s ease;
+}
+
+.footer-links a:hover {
+  color: #86a6ba;
+  opacity: 1;
+}
+
+.footer-info {
+  line-height: 1.6;
+  font-size: 0.9rem;
+  color: #aeb9c1;
+  margin-top: 10px;
+  max-width: 700px;
+}

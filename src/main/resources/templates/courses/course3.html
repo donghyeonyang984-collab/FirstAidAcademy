@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="content">
+
+    <!-- 심정지 강의 페이지 제목 -->
+    <div class="course-page-title">
+        <h2 th:text="${pageTitle}"> 강의 목록-심정지</h2>
+    </div>
+
+    <!-- 탭 + 검색 -->
+    <div class="tab-container">
+
+        <div class="tabs-and-search">
+            <div class="tabs">
+                <a class="tab"
+                   th:classappend="${selectedTop == ''} ? ' active'"
+                   th:href="@{|/courses?mid=${selectedMid}&q=${keyword}&sort=${sort}|}">
+                    전체
+                </a>
+
+                <a class="tab"
+                   th:classappend="${selectedTop == '구조자'} ? ' active'"
+                   th:href="@{|/courses?top=구조자&mid=${selectedMid}&q=${keyword}&sort=${sort}|}">
+                    구조자 응급처치
+                </a>
+
+                <a class="tab"
+                   th:classappend="${selectedTop == '자가'} ? ' active'"
+                   th:href="@{|/courses?top=자가&mid=${selectedMid}&q=${keyword}&sort=${sort}|}">
+                    자가 응급처치
+                </a>
+            </div>
+
+            <form class="course-search-form" th:action="@{/courses}" method="get">
+                <input type="hidden" name="top" th:value="${selectedTop}">
+                <input type="hidden" name="mid" th:value="${selectedMid}">
+
+                <div class="search-box">
+                    <input type="text" name="q" th:value="${keyword}" placeholder="강의 검색"/>
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="tab-content">
+            <div class="course-list">
+
+                <div class="course-card" th:each="course : ${courses}">
+                    <div class="thumbnail">
+                        <img th:src="@{|/images/courses/${course.imagePath}|}" alt="썸네일"/>
+                    </div>
+
+                    <div class="course-info">
+                        <h3 class="course-title" th:text="${course.title}">강의 제목</h3>
+
+                        <div class="category-tags">
+                            <span th:text="${course.topCategory}">TOP</span>
+                            <span th:text="${course.midCategory}">MID</span>
+                        </div>
+
+                        <p class="course-desc" th:text="${course.summary}">강의 설명</p>
+
+                        <form th:action="@{|/courses/${course.courseId}/enroll|}"
+                              method="post"
+                              onsubmit="return confirm('이 강의를 수강 신청하시겠습니까?');">
+                            <!-- (Spring Security 쓰면 CSRF hidden 필드 추가) -->
+                            <button type="submit" class="apply-btn">
+                                수강신청 하기
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="empty-result" th:if="${#lists.isEmpty(courses)}">
+                    심정지 관련 강의가 없습니다.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 페이지네이션 (그대로) -->
+    <div class="pagination" th:if="${totalPages > 0}">
+        ...
+    </div>
+
+</th:block>
+</body>
+</html>

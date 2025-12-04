@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육 자료 수정</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+</head>
+<body>
+<!-- 헤더(헤더 css) -->
+<div th:replace="~{adminHeader :: header}"></div>
+<!-- 사이드바(사이드바 css, 공통 js) -->
+<div th:replace="~{adminSidebar :: sidebar}"></div>
+
+<main id="container">
+    <!-- 맨 위 타이틀 (공통 css) -->
+    <h3 class="main_title">교육자료수정</h3>
+
+    <!-- 수정 폼 (공통 CSS) -->
+    <div class="admin_edit_cont">
+        <form id="admin_edu_edit_form"
+              class="admin_edit_form"
+              method="post"
+              enctype="multipart/form-data"
+              th:action="@{/adminEdu/adminEduEdit/{id}(id=${material.materialId})}">
+
+            <!-- 교육 자료명 -->
+            <div class="admin_form_group">
+                <label for="editEduTitle" class="form_label_title">교육자료명</label>
+                <input type="text"
+                       id="editEduTitle"
+                       name="title"
+                       th:value="${material.title}"
+                       placeholder="수정할 교육자료명을 입력하세요."
+                       required>
+            </div>
+
+            <!-- 교육 자료 분류 -->
+            <div class="admin_form_group admin_select_group">
+                <label class="form_label_title">교육자료 분류</label>
+                <div class="admin_select_row">
+                    <label for="addEduMainSelect" class="form_label_subject">대주제 : </label>
+                    <select id="addEduMainSelect" name="topCategory" class="admin_select_sub">
+                        <option value="">대주제 선택</option>
+                        <option th:each="tc : ${topCategories}"
+                                th:value="${tc.name()}"
+                                th:text="${tc.dbValue}">
+                        </option>
+                    </select>
+
+                    <label for="addEduSubSelect" class="form_label_subject">세부 주제 : </label>
+                    <select id="addEduSubSelect" name="midCategory" class="admin_select_sub">
+                        <option value="">중주제 선택</option>
+                        <option th:each="mc : ${midCategories}"
+                                th:value="${mc.name()}"
+                                th:text="${mc.dbValue}">
+                        </option>
+                    </select>
+                </div>
+                <p class="form_guide">※ 대주제를 먼저 선택한 후 세부 주제를 선택하세요.</p>
+            </div>
+
+            <!-- 교육 자료 설명 -->
+            <div class="admin_form_group admin_textarea_group">
+                <label for="editEduDesc" class="form_label_title">교육자료 설명</label>
+                <textarea id="editEduDesc"
+                          class="admin_textarea"
+                          name="content"
+                          th:text="${material.contentHtml}"
+                          placeholder="해당 교육자료의 수정할 내용을 입력하세요."
+                          rows="5"
+                          required></textarea>
+            </div>
+
+            <!-- 교육 자료 파일 -->
+            <div class="admin_form_group edu_file_group">
+                <label for="editEduFile" class="form_label_title">교육자료 파일</label>
+                <input type="file"
+                       id="editEduFile"
+                       name="pdfFile"
+                       accept=".pdf">
+                <p class="form_guide">※ 새 파일을 등록하지 않으면 기존 파일이 유지됩니다.</p>
+            </div>
+
+            <!-- 자료 수정, 취소 버튼 -->
+            <div class="admin_form_btns">
+                <button type="submit"
+                        id="admin_edu_editBtn"
+                        class="admin_edit_btn">수정
+                </button>
+                <button type="button"
+                        id="admin_edu_cancelBtn"
+                        class="admin_cancel_btn"
+                        onclick="window.location.href='/adminEdu/adminEdu';">
+                    취소
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- 푸터(푸터 css) -->
+<div th:replace="~{adminFooter :: footer}"></div>
+
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 자료 수정 전용 js -->
+<!-- <script src="js/adminEduEdit.js"></script> -->
+</body>
+</html>

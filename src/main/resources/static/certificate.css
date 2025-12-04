@@ -1,0 +1,213 @@
+/* 기본 설정 */
+@page {
+    size: A4;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    font-family: "Batang", "Gungsuh", "GungsuhChe", serif;
+}
+
+/* 전체 컨테이너 */
+.certificate_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 0;
+    
+}
+
+/* 프레임 (배경 이미지) */
+.certificate_frame {
+    width: 210mm;
+    height: 297mm;
+    background: url("/images/certificateBg.png") no-repeat center center;
+    background-size: contain;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fdfcf9;
+}
+
+/* 내용 본문 */
+.certificate_content {
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #222;
+    line-height: 1.8;
+    font-weight: 550;
+}
+
+/* 문서 번호 */
+.cert_number {
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 570;
+    color: #444;
+    margin-left: 50px;
+    margin-top: -300px;
+    margin-bottom: 25px;
+}
+
+/* 제목 */
+.cert_title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 50px;
+    color: #1d3557;
+    letter-spacing: 1.2px;
+}
+
+/* 수강자 정보 */
+.cert_info {
+    text-align: left;
+    margin: 0 auto 40px auto;
+    width: 75%;
+    font-size: 1rem;
+}
+
+.cert_info p {
+    margin: 4px 0;
+}
+
+/* 과정 정보 */
+.cert_course {
+    text-align: left;
+    margin: 0 auto 40px auto;
+    width: 75%;
+    font-size: 0.95rem;
+}
+
+.cert_course ul {
+    margin-top: 6px;
+    margin-left: 20px;
+}
+
+.cert_course li {
+    list-style-type: "– ";
+    margin-bottom: 4px;
+}
+
+/* 문구 */
+.cert_statement {
+    margin: 70px 0;
+    font-size: 1rem;
+    font-weight: 570;
+    line-height: 1.7;
+}
+
+/* 날짜 */
+.cert_date {
+    font-size: 1rem;
+    font-weight: 570;
+    margin-bottom: 50px;
+}
+
+/* 기관 및 서명 */
+.cert_footer {
+    text-align: center;
+    position: relative;
+    margin-bottom: -300px;
+}
+
+.cert_org {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #222;
+    position: relative;
+    z-index: 2;
+}
+
+/* 직인 영역 */
+.cert_stamp {
+    width: 100px;
+    height: 100px;
+    background: url("/images/stamp3.png") no-repeat center center;
+    background-size: contain;
+    margin: 0 auto;
+    position: absolute;
+    right: 18%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateY(5px);
+    opacity: 0.6;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 인쇄 전용 스타일*/
+@media print {
+
+    /* 버튼, 메뉴 등 숨기기 */
+    .print-btn,
+    .header,
+    .sidebar,
+    nav,
+    footer {
+        display: none !important;
+    }
+
+    /* 배경 색/이미지 유지 */
+    body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* 수료증을 용지 중앙에 정렬 */
+    .certificate_wrap {
+        width: 100%;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    /* A4 꽉 채우기 */
+    .certificate_frame {
+        width: 21cm;
+        height: 29.7cm;
+        margin: 0 auto;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* 페이지 여백 제거 */
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+}
+.print-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+    border: none;
+    border-radius: 8px;
+
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.print-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+.print-btn:active {
+    transform: scale(0.97);
+}

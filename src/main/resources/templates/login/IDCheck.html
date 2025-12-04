@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <section class="common-section">
+        <div class="form-box">
+
+            <div class="text-box">
+                <h2>아이디 확인</h2>
+                가입 된 아이디 내역
+                <br />
+                고객님의 정보와 일치하는 아이디입니다.
+            </div>
+
+            <div class="form">
+                <div class="form-row">
+                    <p>아이디</p>
+                    <input type="text"
+                           readonly
+                           placeholder="아이디"
+                           th:value="${foundUsername}" />
+                </div>
+                <div class="form-row">
+                    <p>가입일</p>
+                    <input type="text"
+                           readonly
+                           placeholder="20051107"
+                           th:value="${createdDate}" />
+                </div>
+            </div>
+
+            <div class="findBtn">
+                <a href="../login/login.html" th:href="@{/login/login}">
+                    <button type="button" class="common-btn1">로그인</button>
+                </a>
+                <a href="resetPW.html" th:href="@{/login/resetPW}">
+                    <button type="button" class="common-btn2">비밀번호 재설정</button>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+</th:block>
+
+</body>
+</html>

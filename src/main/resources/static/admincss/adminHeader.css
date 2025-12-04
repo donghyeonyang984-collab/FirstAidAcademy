@@ -1,0 +1,58 @@
+/* 전체 기본 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+}
+
+/* 관리자 헤더 부분 */
+#admin_header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    z-index: 1000;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.main_logo img{
+    width: 150px;
+    margin-left: 20px;
+}
+
+.admin_info {
+    padding-right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin_info p {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.admin_logout_link{
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    color: #fff;
+    border: 1px solid #2e65fd;
+    border-radius: 5px;
+    padding: 4px 10px;
+    background-color: #2760fa;
+}

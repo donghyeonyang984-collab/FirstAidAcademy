@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보도자료 수정</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 보도자료 수정 전용 -->
+    <link rel="stylesheet" href="/admincss/adminPressEdit.css">
+</head>
+
+<body>
+   <!-- 헤더(헤더 css) -->
+    <div th:replace="~{adminHeader :: header}"></div>
+    <!-- 사이드바(사이드바 css, 공통 js) -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+    <main id="container">
+        <!-- 맨 위 타이틀 (공통 css) -->
+        <h3 class="main_title">보도자료수정</h3>
+        <!-- 수정 폼 (공통 CSS) -->
+        <div class="admin_edit_cont">
+            <form id="admin_press_edit_form"
+                  class="admin_edit_form"
+                  th:action="@{|/adminPress/${press.pressReleaseId}/edit|}"
+                  method="post">
+
+                <!-- 보도자료 제목 -->
+                <div class="admin_form_group">
+                    <label for="editPressTitle" class="form_label_title">제목</label>
+                    <input type="text" id="editPressTitle" name="editPressTitle"
+                           placeholder="수정할 보도자료 제목을 입력하세요."
+                           th:value="${press.title}"
+                           required>
+                </div>
+
+                <!-- 보도자료 내용 -->
+                <div class="admin_form_group admin_textarea_group">
+                    <label for="editPressContent" class="form_label_title">내용</label>
+                    <textarea id="editPressContent" name="editPressContent" class="admin_textarea"
+                              placeholder="해당 보도자료의 수정할 내용을 입력하세요."
+                              rows="5" required
+                              th:text="${press.contentHtml}"></textarea>
+                </div>
+
+                <!-- 보도자료 url 버전 -->
+                <div class="admin_form_group press_link_group">
+                    <label for="editPressLink" class="form_label_title">보도자료 링크(URL)</label>
+                    <input type="url" id="editPressLink" name="editPressLink"
+                           placeholder="https://example.com/news/1234"
+                           th:value="${press.linkUrl}">
+                    <p class="form_guide">※ 새 URL을 등록하지 않으면 기존 URL이 유지됩니다.</p>
+                </div>
+
+                <!-- 보도자료 영상 버전 -->
+                <!-- <div class="admin_form_group press_video_group">
+                    <label for="editPressVideo" class="form_label_title">보도자료 영상</label>
+                    <div class="upload_box">
+                        <div class="upload_input">
+                            <input type="file" id="editPressVideo" name="editPressVideo" accept="video/*" required>
+                        </div>
+                    </div>
+                    <p class="form_guide">※ 새 영상 파일을 등록하지 않으면 기존 영상이 유지됩니다.</p>
+                </div> -->
+
+                <!-- 보도자료 수정, 취소 버튼 -->
+                <div class="admin_form_btns">
+                    <button type="submit" id="admin_press_editBtn" class="admin_edit_btn">수정</button>
+                    <button type="button" id="admin_press_cancelBtn" class="admin_cancel_btn"
+                            onclick="history.back();">취소</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- 푸터(푸터 css) -->
+  <div th:replace="~{adminFooter :: footer}"></div>
+</body>
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 보도자료 수정 전용 js -->
+<!-- <script src="js/adminPressEdit.js"></script> -->
+
+</html>

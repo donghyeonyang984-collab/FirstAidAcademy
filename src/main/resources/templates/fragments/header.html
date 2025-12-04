@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="header(activeMenu)">
+
+    <!-- ===== 헤더 ===== -->
+    <header>
+        <div class="top">
+            <div class="login">
+
+                <!-- 로그인 전: 로그인 / 회원가입 -->
+                <div th:if="${session.LOGIN_USER == null}" class="login-guest">
+                    <a href="/login" th:href="@{/login}">로그인</a>
+                    <span>|</span>
+                    <a href="/join/agreement" th:href="@{/join/agreement}">회원가입</a>
+                </div>
+
+                <!-- 로그인 후: 이름 / (관리자일 때) 관리자 페이지 / 로그아웃 -->
+                <div th:if="${session.LOGIN_USER != null}" class="login-user">
+
+                    <!-- 이름 표시 -->
+                    <span class="login-user-name">
+                <!-- 아이콘은 선택 사항 (Font Awesome 사용 중이면 유지) -->
+                <i class="fa-regular fa-user"></i>
+                <span th:text="${session.LOGIN_USER.name}">홍길동</span> 님
+            </span>
+
+                    <!-- 버튼 영역 -->
+                    <div class="login-user-buttons">
+                        <!-- ✅ 관리자 계정일 때만 관리자 페이지 버튼 -->
+                        <a th:if="${session.LOGIN_USER.role == 'Admin'}"
+                           th:href="@{/adminHome}"
+                           class="top-btn top-btn-outline">
+                            관리자 페이지
+                        </a>
+
+                        <!-- ✅ 공통 로그아웃 버튼 -->
+                        <a th:href="@{/login/logout}"
+                           class="top-btn top-btn-filled">
+                            로그아웃
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <nav class="navbar">
+            <div class="band"></div>
+
+            <div class="logo_box">
+                <!-- header.html -->
+                <div class="logo">
+                    <a th:href="@{/home}">
+                        <img src="/images/logo.png" class="logoImg" alt="로고">
+                    </a>
+                </div>
+
+                <div class="nav-inner">
+                    <ul class="menu" role="menubar" aria-label="주요 메뉴">
+
+                        <!-- 1. 교육과정 -->
+                        <li class="menu-item"
+                            role="none"
+                            th:classappend="${activeMenu} == 'COURSE' ? ' active' : ''">
+                            <a role="menuitem"
+                               href="/courses/about.html"
+                               th:href="@{/courses/about.html}">
+                                교육과정
+                            </a>
+                        </li>
+
+                        <!-- 2. 나의강의실 -->
+                        <li class="menu-item"
+                            role="none"
+                            th:classappend="${activeMenu} == 'MYCLASS' ? ' active' : ''">
+                            <a role="menuitem"
+                               href="/myPage/myStudy.html"
+                               th:href="@{/myPage/myStudy.html}">
+                                나의강의실
+                            </a>
+                        </li>
+
+                        <!-- 3. 게임 콘텐츠 -->
+                        <li class="menu-item"
+                            role="none"
+                            th:classappend="${activeMenu} == 'GAME' ? ' active' : ''">
+                            <!-- 상단 메뉴 클릭 시: 게임 소개로 이동 -->
+                            <a role="menuitem"
+                               href="/game/aboutGame.html"
+                               th:href="@{/game/aboutGame.html}">
+                                게임 콘텐츠
+                            </a>
+                        </li>
+
+                        <!-- 4. 소식센터 -->
+                        <li class="menu-item"
+                            role="none"
+                            th:classappend="${activeMenu} == 'NEWS' ? ' active' : ''">
+                            <a role="menuitem"
+                               href="/notice"
+                               th:href="@{/pages/notice.html}">
+                                소식센터
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <!-- ===== 드롭다운 (메가메뉴) ===== -->
+                    <div class="dropdowns" aria-hidden="true">
+
+                        <!-- 1. 교육과정 하위메뉴 -->
+                        <div class="dropdown" aria-label="교육과정 하위메뉴">
+                            <a href="/courses/about.html"
+                               th:href="@{/courses/about.html}">소개글</a>
+                            <a href="/courses/courses.html"
+                               th:href="@{/courses/courses.html}">강의 목록</a>
+                            <a href="/courses/data.html"
+                               th:href="@{/courses/data.html}">교육 자료</a>
+                        </div>
+
+                        <!-- 2. 나의강의실 하위메뉴 -->
+                        <div class="dropdown" aria-label="나의강의실 하위메뉴">
+                            <a href="/myPage/myStudy.html"
+                               th:href="@{/myPage/myStudy.html}">나의 학습 활동</a>
+                            <a href="/myPage/question.html"
+                               th:href="@{/myPage/question.html}">문의 사항</a>
+                            <a href="/myPage/courseList.html"
+                               th:href="@{/myPage/courseList.html}">수강 목록</a>
+                            <a href="/myPage/completion.html"
+                               th:href="@{/myPage/completion.html}">수료</a>
+                            <a href="/myPage/nonCompletion.html"
+                               th:href="@{/myPage/nonCompletion.html}">미수료</a>
+                            <a href="/myPage/infoModify.html"
+                               th:href="@{/myPage/infoModify.html}">회원 정보 수정</a>
+                        </div>
+
+                        <!-- 3. 게임 · 훈련 하위메뉴 -->
+                        <div class="dropdown" aria-label="게임 · 훈련 하위메뉴">
+                            <!-- aboutGame: 응급 처치 시뮬레이션 게임 소개 -->
+                            <a href="/game/aboutGame.html"
+                               th:href="@{/game/aboutGame.html}">
+                                응급처치 게임 소개
+                            </a>
+
+                            <!-- myGame: 배지 보관함 -->
+                            <a href="/game/myGame.html"
+                               th:href="@{/game/myGame.html}">
+                                나의 배지 보관함
+                            </a>
+                        </div>
+
+                        <!-- 4. 소식센터 하위메뉴 -->
+                        <div class="dropdown" aria-label="소식센터 하위메뉴">
+                            <!-- 공지사항 리스트 -->
+                            <a href="/notice"
+                               th:href="@{/pages/notice.html}">공지사항</a>
+
+                            <!-- FAQ -->
+                            <a href="/faq"
+                               th:href="@{/pages/faq.html}">FAQ</a>
+
+                            <!-- 보도자료 리스트 -->
+                            <a href="/news"
+                               th:href="@{/pages/news.html}">보도자료</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <section class="question-upload">
+
+        <form th:action="@{/myPage/questions/new}"
+              th:object="${form}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <!-- 제목 영역 (클래스 그대로) -->
+            <div class="questionUpload-header">
+                <h2 class="upload-title">
+                    제목 :
+                    <input type="text"
+                           class="title-text"
+                           th:field="*{title}"
+                           placeholder="제목을 입력하세요" />
+                </h2>
+                <!-- 검증 에러 -->
+                <p class="field-error"
+                   th:if="${#fields.hasErrors('title')}"
+                   th:errors="*{title}">제목 오류</p>
+            </div>
+
+            <!-- 작성자 / 유형 / 첨부 -->
+            <div class="question-info">
+                <!-- 작성자 영역 (writer 그대로) -->
+                <div class="writer">
+                    작성자: <span th:text="${writerId}">아이디</span>
+                </div>
+
+                <!-- 유형 영역 (upload-type 그대로) -->
+                <div class="upload-type">
+                    <span>유형</span>
+                    <select th:field="*{category}">
+                        <option value="">문의 유형 선택</option>
+                        <option value="강의">강의 관련</option>
+                        <option value="시스템">시스템 문제</option>
+                        <option value="이수증">이수증 발급</option>
+                        <option value="회원정보">회원정보</option>
+                    </select>
+                    <p class="field-error"
+                       th:if="${#fields.hasErrors('category')}"
+                       th:errors="*{category}">유형 오류</p>
+                </div>
+
+                <!-- 파일 첨부 영역 (upload-file / file-label 그대로) -->
+                <div class="upload-file">
+                    <label class="file-label">
+                        파일 첨부
+                        <input type="file" name="files" multiple />
+                    </label>
+                </div>
+            </div>
+
+            <!-- 내용 (upload-content 그대로) -->
+            <textarea class="upload-content"
+                      th:field="*{content}"
+                      placeholder="문의하실 내용을 입력해주세요."></textarea>
+            <p class="field-error"
+               th:if="${#fields.hasErrors('content')}"
+               th:errors="*{content}">내용 오류</p>
+
+            <!-- 버튼 (btn-submit / btn-cancel 그대로) -->
+            <div class="upload-footer">
+                <button class="btn-submit" type="submit">등록</button>
+
+                <!-- 취소는 버튼 그대로 두고 JS로 목록 이동 -->
+                <button class="btn-cancel" type="button"
+                        th:onclick="|location.href='@{/myPage/questions}'|">
+                    취소
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+
+</th:block>
+
+</body>
+</html>

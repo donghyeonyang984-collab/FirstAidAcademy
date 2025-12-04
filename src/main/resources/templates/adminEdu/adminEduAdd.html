@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육 자료 등록</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+
+</head>
+<body>
+<!-- 헤더(헤더 css) -->
+<div th:replace="~{adminHeader :: header}"></div>
+<!-- 사이드바(사이드바 css, 공통 js) -->
+<div th:replace="~{adminSidebar :: sidebar}"></div>
+<main id="container">
+    <!-- 맨 위 타이틀 (공통 css) -->
+    <h3 class="main_title">교육자료등록</h3>
+    <!-- 등록 폼 (공통 CSS) -->
+    <div class="admin_edit_cont">
+        <form id="admin_edu_add_form"
+              class="admin_edit_form"
+              method="post"
+              enctype="multipart/form-data"
+              th:action="@{/adminEdu/adminEduAdd}">
+
+
+            <!-- 교육 자료명 -->
+            <div class="admin_form_group">
+                <label for="addEduTitle" class="form_label_title">교육자료명</label>
+                <input type="text"
+                       id="addEduTitle"
+                       name="title"
+                       placeholder="등록할 교육자료명을 입력하세요."
+                       required>
+            </div>
+
+            <!-- 교육 자료 분류 -->
+            <div class="admin_form_group admin_select_group">
+                <label class="form_label_title">교육자료 분류</label>
+                <div class="admin_select_row">
+                    <label for="addEduMainSelect" class="form_label_subject">대주제 : </label>
+                    <select id="addEduMainSelect" name="topCategory" class="admin_select_sub">
+                        <option value="">대주제 선택</option>
+                        <option th:each="tc : ${topCategories}"
+                                th:value="${tc.name()}"
+                                th:text="${tc.dbValue}">
+                        </option>
+                    </select>
+
+                    <label for="addEduSubSelect" class="form_label_subject">세부 주제 : </label>
+                    <select id="addEduSubSelect" name="midCategory" class="admin_select_sub">
+                        <option value="">중주제 선택</option>
+                        <option th:each="mc : ${midCategories}"
+                                th:value="${mc.name()}"
+                                th:text="${mc.dbValue}">
+                        </option>
+                    </select>
+                </div>
+                <p class="form_guide">※ 대주제를 먼저 선택한 후 세부 주제를 선택하세요.</p>
+            </div>
+
+            <!-- 교육 자료 설명 -->
+            <div class="admin_form_group admin_textarea_group">
+                <label for="addEduDesc" class="form_label_title">교육자료 설명</label>
+                <textarea id="addEduDesc"
+                          class="admin_textarea"
+                          name="content"
+                          placeholder="해당 교육자료의 내용을 입력하세요."
+                          rows="5"
+                          required></textarea>
+            </div>
+
+            <!-- 교육 자료 파일 -->
+            <div class="admin_form_group edu_file_group">
+                <label for="addEduFile" class="form_label_title">교육자료 파일</label>
+                <input type="file"
+                       id="addEduFile"
+                       name="pdfFile"
+                       accept=".pdf"
+                       required>
+                <p class="form_guide">※ PDF 파일 형식으로 등록해 주세요.</p>
+            </div>
+
+            <!-- 자료 등록, 취소 버튼 -->
+            <div class="admin_form_btns">
+                <button type="submit" id="admin_edu_submitBtn" class="admin_submit_btn">등록</button>
+                <button type="button"
+                        id="admin_edu_cancelBtn"
+                        class="admin_cancel_btn"
+                        onclick="window.location.href='/adminEdu/adminEdu';">
+                    취소</button>
+            </div>
+        </form>
+    </div>
+</main>
+<!-- 푸터(푸터 css) -->
+<div th:replace="~{adminFooter :: footer}"></div>
+</body>
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 자료 등록 전용 js -->
+<!-- <script src="js/adminEduAdd.js"></script> -->
+</html>

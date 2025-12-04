@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <h1>문의 사항</h1>
+
+    <!-- 검색 / 필터 / 등록 버튼 -->
+    <form class="qna-search-bar"
+          th:action="@{/myPage/questions}"
+          method="get">
+
+        <div class="qna-search-left">
+            <!-- ✅ 원본처럼 select + 검색박스를 한 그룹으로 -->
+            <select class="filter-select" name="category">
+                <option value=""
+                        th:selected="${selectedCategory == null or selectedCategory == ''}">
+                    전체
+                </option>
+                <option value="강의"
+                        th:selected="${selectedCategory == '강의'}">강의 관련</option>
+                <option value="시스템"
+                        th:selected="${selectedCategory == '시스템'}">시스템 문제</option>
+                <option value="이수증"
+                        th:selected="${selectedCategory == '이수증'}">이수증 발급</option>
+                <option value="회원정보"
+                        th:selected="${selectedCategory == '회원정보'}">회원정보</option>
+            </select>
+
+            <div class="qna-search-box">
+                <input type="text"
+                       name="keyword"
+                       placeholder="제목 검색"
+                       th:value="${keyword}">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+
+        <div class="qna-write-btn">
+            <a th:href="@{/myPage/questions/new}">
+                <i class="fa-solid fa-plus"></i>등록
+            </a>
+        </div>
+    </form>
+
+
+    <!-- 문의 목록 테이블 -->
+    <table class="question-table">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>유형</th>
+            <th>등록일</th>
+            <th>답변 상태</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <!-- 데이터 없을 때 -->
+        <tr th:if="${#lists.isEmpty(inquiries)}">
+            <td colspan="5" class="empty-row">등록된 문의가 없습니다.</td>
+        </tr>
+
+        <!-- 데이터 있을 때 -->
+        <tr th:each="inq, iter : ${inquiries}">
+            <!-- 번호: 전체 건수 기준 내림차순 -->
+            <td th:text="${totalCount - ((page - 1) * pageSize + iter.index)}">1</td>
+
+            <td>
+                <a th:href="@{/myPage/questions/{id}(id=${inq.inquiryId})}"
+                   th:text="${inq.title}">
+                    이수증 발급이 안됩니다.
+                </a>
+            </td>
+
+            <td th:text="${inq.category}">이수증 발급</td>
+
+            <td th:text="${#temporals.format(inq.createdAt,'yyyy-MM-dd')}">
+                2025-11-26
+            </td>
+
+            <td class="answer">
+                <!-- ✅ status / done / pending 그대로 유지 -->
+                <span class="status"
+                      th:classappend="${inq.status == '답변완료'} ? ' done' : ' pending'"
+                      th:text="${inq.status == '답변완료' ? '답변완료' : '답변대기'}">
+                    답변대기
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+        <!-- 이전 버튼 -->
+        <a class="page-btn prev"
+           th:if="${page > 1}"
+           th:href="@{/myPage/questions(page=${page-1},category=${selectedCategory},keyword=${keyword})}">
+            &lt;
+        </a>
+        <button class="page-btn prev" th:if="${page <= 1}" disabled>&lt;</button>
+
+        <!-- 페이지 번호 -->
+        <ul class="page-numbers">
+            <li th:each="p : ${#numbers.sequence(1, totalPages)}">
+                <a th:href="@{/myPage/questions(page=${p},category=${selectedCategory},keyword=${keyword})}"
+                   th:text="${p}"
+                   th:classappend="${p == page} ? ' active'">
+                    1
+                </a>
+            </li>
+        </ul>
+
+        <!-- 다음 버튼 -->
+        <a class="page-btn next"
+           th:if="${page < totalPages}"
+           th:href="@{/myPage/questions(page=${page+1},category=${selectedCategory},keyword=${keyword})}">
+            &gt;
+        </a>
+        <button class="page-btn next" th:if="${page >= totalPages}" disabled>&gt;</button>
+    </div>
+
+</th:block>
+
+</body>
+</html>

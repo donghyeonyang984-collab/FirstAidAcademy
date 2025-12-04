@@ -1,0 +1,14 @@
+<header id="admin_header" th:fragment="header">
+    <!-- 로고 클릭 시 /home 으로 이동 (필요하면 /admin/home 으로 변경 가능) -->
+    <a th:href="@{/home}" class="main_logo">
+        <img src="/images/logo.png" alt="logo">
+    </a>
+
+    <div class="admin_info">
+        <p>관리자 님</p>
+        <!-- ✅ 실제 로그아웃 URL로 이동 -->
+        <a th:href="@{/login/logout}"
+           id="admin_logout"
+           class="admin_logout_link">Logout</a>
+    </div>
+</header>

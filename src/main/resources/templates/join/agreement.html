@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <form th:action="@{/join/agreement}" method="post" th:object="${termsForm}">
+        <div class="join-container">
+            <h1>회원가입</h1>
+            <h3>이용 약관 동의</h3>
+
+            <!-- 서비스 이용 약관 -->
+            <div class="agree-section">
+                <h3>서비스 이용 약관 동의 (필수) <span class="required">*</span></h3>
+                <div class="agree-box">
+                    본 약관은 서비스를 이용함에 있어 필요한 기본적인 사항을 규정합니다.<br>
+                    본 약관은 서비스를 이용함에 있어 필요한 기본적인 사항을 규정합니다.<br>
+                    본 약관은 서비스를 이용함에 있어 필요한 기본적인 사항을 규정합니다.<br>
+                    (예시 텍스트입니다. 실제 약관 내용으로 교체하세요.)
+                </div>
+                <div class="agree-check">
+                    <input type="checkbox" id="agree1" class="required" th:field="*{agreeService}">
+                    <label for="agree1">서비스 이용 약관에 동의합니다 (필수)</label>
+                </div>
+            </div>
+
+            <!-- 개인정보 처리 방침 -->
+            <div class="agree-section">
+                <h3>개인정보 수집 및 이용 동의 (필수) <span class="required">*</span></h3>
+                <div class="agree-box">
+                    개인정보는 서비스 제공과 이용자 식별, 문의 응대 등을 위한 목적으로만 사용됩니다.<br>
+                    개인정보는 서비스 제공과 이용자 식별, 문의 응대 등을 위한 목적으로만 사용됩니다.<br>
+                    (예시 텍스트입니다. 실제 약관 내용으로 교체하세요.)
+                </div>
+                <div class="agree-check">
+                    <input type="checkbox" id="agree2" class="required" th:field="*{agreePrivacy}">
+                    <label for="agree2">개인정보 수집 및 이용에 동의합니다 (필수)</label>
+                </div>
+            </div>
+
+            <!-- 위치기반 서비스 -->
+            <div class="agree-section">
+                <h3>위치기반 서비스 이용 동의 (필수) <span class="required">*</span></h3>
+                <div class="agree-box">
+                    위치 정보는 맞춤형 서비스 제공을 위해 사용되며, 관련 법령을 준수합니다.<br>
+                    위치 정보는 맞춤형 서비스 제공을 위해 사용되며, 관련 법령을 준수합니다.<br>
+                    (예시 텍스트입니다. 실제 약관 내용으로 교체하세요.)
+                </div>
+                <div class="agree-check">
+                    <input type="checkbox" id="agree3" class="required" th:field="*{agreeLocation}">
+                    <label for="agree3">위치기반 서비스 이용에 동의합니다 (필수)</label>
+                </div>
+            </div>
+
+            <!-- 마케팅 동의 -->
+            <div class="agree-section">
+                <h3>마케팅 정보 수신 동의 (선택)</h3>
+                <div class="agree-box">
+                    다양한 이벤트 및 혜택 정보를 이메일로 받아보실 수 있습니다.
+                </div>
+                <div class="agree-check">
+                    <input type="checkbox" id="agree4" th:field="*{agreeMarketing}">
+                    <label for="agree4">마케팅 정보 수신에 동의합니다 (선택)</label>
+                </div>
+            </div>
+
+            <!-- 전체 동의 -->
+            <div class="final-check">
+                <input type="checkbox" id="allCheck">
+                <label for="allCheck">전체 약관에 동의합니다.</label>
+            </div>
+
+            <!-- 서버 에러 메시지 -->
+            <div th:if="${error}" class="error-msg" th:text="${error}"></div>
+
+            <!-- 버튼 -->
+            <div class="signup-buttons">
+                <button class="next" type="submit">다음</button>
+                <button class="cancel" type="button" onclick="history.back()">취소</button>
+            </div>
+        </div>
+    </form>
+
+</th:block>
+
+</body>
+</html>

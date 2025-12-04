@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 관리자 메인 전용 -->
+    <link rel="stylesheet" href="/admincss/adminHome.css">
+    <!-- 통계용 스크립트 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- 헤더(헤더 css) -->
+    <div th:replace="~{adminHeader :: header}"></div>
+    <!-- 사이드바(사이드바 css, 공통 js) -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+    <!-- 메인(공통 css) -->
+    <main id="container">
+        <!-- 맨 위 타이틀(공통 css) -->
+        <h3 class="main_title">DashBoard</h3>
+        <!-- 대시보드 -->
+        <!-- ========== 대시보드 요약 박스 영역 ========== -->
+        <div id="Dashboard_summary">
+            <a href="/adminUser/adminUser" class="summary_card total_users">
+                <p class="summary_title">총 회원 수</p>
+                <p class="summary_value">
+                    <span id="user_total_cnt" th:text="${userTotalCnt}">15</span> 명
+                </p>
+            </a>
+
+            <a href="/adminCourse/adminCourseList" class="summary_card total_courses">
+                <p class="summary_title">등록된 강의 수</p>
+                <p class="summary_value">
+                    <span id="course_total_cnt" th:text="${courseTotalCnt}">12</span> 개
+                </p>
+            </a>
+
+            <a href="/adminInquiry/adminInquiry" class="summary_card inq_unreplied">
+                <p class="summary_title">미답변 문의사항</p>
+                <p class="summary_value">
+                    <span id="inq_unreplied_cnt" th:text="${inqUnrepliedCnt}">8</span> 개
+                </p>
+            </a>
+
+            <a href="/adminNotice/adminNotice" class="summary_card notice_total">
+                <p class="summary_title">총 공지사항 수</p>
+                <p class="summary_value">
+                    <span id="notice_total_cnt" th:text="${noticeTotalCnt}">12</span> 개
+                </p>
+            </a>
+        </div>
+        <!-- ========== 통계 영역 (점선 그래프) ========== -->
+        <section id="dashboard_stats">
+            <a href="#" class="stats_box link_card">
+                <h3 class="stats_title">회원 현황(신규 가입자)</h3>
+                <canvas id="userJoinChart"></canvas>
+            </a>
+
+            <a href="#" class="stats_box link_card">
+                <h3 class="stats_title">강의별 수료율</h3>
+                <canvas id="courseCompletionChart"></canvas>
+            </a>
+        </section>
+    </main>
+    <script th:inline="javascript">
+        /* 회원 현황(신규 가입자) */
+        const userJoinLabels = /*[[${userJoinLabels}]]*/ ["1월","2월","3월","4월","5월","6월"];
+        const userJoinData   = /*[[${userJoinData}]]*/   [20,25,15,30,28,40];
+
+        /* 강의별 수료율 */
+        const courseLabels = /*[[${courseLabels}]]*/ ["출혈", "기도막힘", "심정지", "화상"];
+        const courseCompletionData = /*[[${courseCompletionData}]]*/ [90, 80, 70, 60];
+    </script>
+    <!-- 푸터(푸터 css) -->
+    <div th:replace="~{adminFooter :: footer}"></div>
+    
+    <!-- 공통 js - body 끝에서 로드 -->
+    <script src="/adminjs/adminCommon.js"></script>
+    <!-- 관리자 메인 전용 js -->
+    <script src="/adminjs/adminHome.js"></script>
+
+
+</body>
+
+</html>

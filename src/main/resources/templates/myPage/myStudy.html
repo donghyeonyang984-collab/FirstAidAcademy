@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <h1>나의 학습 활동</h1>
+
+    <!-- 상단 수강중/수료/미수료 카드 -->
+    <section class="study">
+
+        <!-- 수강 중 -->
+        <a href="courseList.html" class="study-card">
+            <div class="study-header">
+                <i class="study-icon fa-solid fa-book-open"></i>
+                <span class="study-count" th:text="${studyingCount}">0</span>
+                <p class="study-label">수강중</p>
+            </div>
+        </a>
+
+        <!-- 수료 -->
+        <a href="completion.html" class="study-card">
+            <div class="study-header">
+                <i class="study-icon fa-solid fa-graduation-cap"></i>
+                <span class="study-count" th:text="${completedCount}">0</span>
+                <p class="study-label">수료</p>
+            </div>
+        </a>
+
+        <!-- 미수료 -->
+        <a href="nonCompletion.html" class="study-card">
+            <div class="study-header">
+                <i class="study-icon fa-solid fa-hourglass-half"></i>
+                <span class="study-count" th:text="${notCompletedCount}">0</span>
+                <p class="study-label">미수료</p>
+            </div>
+        </a>
+
+    </section>
+
+    <!-- 강의 이어 보기 헤더 + 더보기 버튼 -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>강의 이어 보기</h1>
+        <button class="go-btn"
+                type="button"
+                onclick="window.location.href='/myPage/courseList.html'">
+            강의 더 보기
+        </button>
+    </div>
+
+    <!-- 강의 이어 보기 리스트 -->
+    <section class="course-board">
+
+        <!-- 이어볼 강의가 없을 때 -->
+        <div th:if="${#lists.isEmpty(ongoingCourses)}" class="course-empty">
+            <p>현재 이어서 볼 수 있는 강의가 없습니다.</p>
+        </div>
+
+        <!-- 이어볼 강의 카드 반복 -->
+        <div class="course-card"
+             th:each="course : ${ongoingCourses}">
+
+            <!-- 썸네일 -->
+            <div class="thumbnail"
+                 th:if="${course.imagePath != null}"
+
+                th:style="'background-image:url(/images/courses/' + ${course.imagePath} + ');'">
+            </div>
+            <div class="thumbnail" th:if="${course.imagePath == null}">
+                <!-- 기본 썸네일 -->
+            </div>
+
+            <div class="course-info">
+                <!-- 제목 -->
+                <h3 class="course-title"
+                    th:text="${course.title}">응급처치 기초 과정</h3>
+
+                <!-- 카테고리 태그 -->
+                <div class="category-tags">
+                    <span th:text="${course.midCategory}">심정지</span>
+                    <span th:text="${course.topCategory}">구조자</span>
+                </div>
+
+                <!-- 요약 -->
+                <p class="course-desc"
+                   th:text="${course.summary}">
+                    응급 상황에서 심정지 환자에게 시행해야 할 절차를 학습합니다.
+                </p>
+
+                <!-- 진도율 -->
+                <p class="progress-tags">
+                    <span class="progress-tag"
+                          th:text="'진도율 ' + ${#numbers.formatDecimal(course.progressPercent, 0, 0)} + '%'">
+                        진도율 0%
+                    </span>
+                </p>
+
+                <!-- ✅ courseList.html과 동일하게 사용 -->
+                <button type="button"
+                        class="play-btn"
+                        th:onclick="|openLecturePopup(${course.enrollmentId}, ${course.courseId})|">
+                    강의 재생
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 강의 재생 모달이 삽입될 컨테이너 (courseList.html과 동일) -->
+    <div id="lecturePopupContainer"></div>
+
+    <!-- ✅ courseList.html에서 사용하던 동일 스크립트 -->
+    <script>
+        async function openLecturePopup(enrollmentId, courseId) {
+            const container = document.getElementById("lecturePopupContainer");
+            if (!container) return;
+
+            try {
+                const res = await fetch(
+                    "/myPage/lecturePopup?enrollmentId=" + enrollmentId + "&courseId=" + courseId
+                );
+                if (!res.ok) {
+                    console.error("lecturePopup load error", res.status);
+                    return;
+                }
+                const html = await res.text();
+                container.innerHTML = html;
+
+                // 팝업 HTML이 들어간 뒤 초기화
+                if (typeof initLecturePopup === "function") {
+                    initLecturePopup(enrollmentId, courseId);
+                }
+            } catch (e) {
+                console.error("openLecturePopup error", e);
+            }
+        }
+    </script>
+
+</th:block>
+</body>
+</html>

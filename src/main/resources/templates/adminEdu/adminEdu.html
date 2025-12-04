@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육 자료 목록</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 교육 자료 목록 전용 -->
+    <link rel="stylesheet" href="/admincss/adminEdu.css">
+</head>
+
+<body>
+<!-- 헤더(헤더 css) -->
+<div th:replace="~{adminHeader :: header}"></div>
+<!-- 사이드바(사이드바 css, 공통 js) -->
+<div th:replace="~{adminSidebar :: sidebar}"></div>
+
+<main id="container">
+    <!-- 맨 위 타이틀(공통 css) -->
+    <h3 class="main_title">교육자료</h3>
+
+    <form class="admin_tot_srch_box"
+          th:action="@{/adminEdu/adminEdu}"
+          method="get">
+
+        <!-- Total / 몇건씩 보기 -->
+        <div class="admin_totCnt_box">
+            <p>
+                Total :
+                <span id="admin_tot_cnt"
+                      th:text="${totalCount}">0</span> 건
+            </p>
+
+            <!-- size 파라미터 -->
+            <select id="admin_row_select" name="size" onchange="this.form.submit()">
+                <option value="10" th:selected="${size == 10}">10</option>
+                <option value="20" th:selected="${size == 20}">20</option>
+                <option value="30" th:selected="${size == 30}">30</option>
+            </select>
+            <span>건씩 보기</span>
+        </div>
+
+        <!-- 카테고리 선택(자가 / 구조자) -->
+        <div class="eduList_srch_status">
+            <input type="radio"
+                   id="eduStatus_self"
+                   name="category" onchange="this.form.submit()"
+                   value="자가"
+                   th:checked="${selectedCategory == '자가'}">
+            <label for="eduStatus_self">자가 응급 처치</label>
+
+            <input type="radio"
+                   id="eduStatus_succor"
+                   name="category" onchange="this.form.submit()"
+                   value="구조자"
+                   th:checked="${selectedCategory == '구조자'}">
+            <label for="eduStatus_succor">구조자 응급 처치</label>
+        </div>
+
+        <!-- 제목 검색 -->
+        <div class="admin_srch_field">
+            <input type="text"
+                   name="keyword"
+                   class="admin_srch_input"
+                   placeholder="교육자료 제목을 입력해 주세요."
+                   th:value="${keyword}">
+            <button type="submit" class="admin_srch_icon">
+                <img src="/images/srchImg.png" alt="검색">
+            </button>
+        </div>
+    </form>
+
+    <!-- 자료 목록 테이블 (공통 css) -->
+    <div id="admin_eduList_box" class="admin_table_box">
+        <table id="admin_eduList_table" class="admin_table_cont">
+            <thead>
+            <tr>
+                <th style="width: 70px;">No.</th>
+                <th style="width: 200px;">제목</th>
+                <th style="width: 200px;">내용</th>
+                <th style="width: 150px;">첨부파일</th>
+                <th style="width: 100px;">등록자</th>
+                <th style="width: 110px;">등록일</th>
+                <th style="width: 80px;">관리</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- DB에서 넘어온 materials 사용 -->
+            <tr th:each="m, stat : ${materials}">
+                <!-- No. (최신 글이 가장 큰 번호) -->
+                <td th:text="${startNo - stat.index}">1</td>
+
+                <!-- 제목 (수정 페이지로 이동) -->
+                <td>
+                    <a th:href="@{|/adminEdu/adminEduEdit/${m.materialId}|}"
+                       th:text="${m.title}">
+                        교육자료 제목
+                    </a>
+                </td>
+
+                <!-- 내용 요약 -->
+                <td th:text="${#strings.abbreviate(m.contentHtml, 40)}">
+                    교육자료 내용 미리보기
+                </td>
+
+                <!-- 첨부파일 다운로드 (BLOB 기반: DB에 저장된 파일명 사용) -->
+                <td>
+                    <a th:href="@{|/adminEdu/download/${m.materialId}|}"
+                       th:text="${m.pdfFilename}">
+                        다운로드
+                    </a>
+                </td>
+
+                <!-- 등록자 -->
+                <td th:text="${m.writerName}">관리자</td>
+
+                <!-- 등록일 -->
+                <td th:text="${#temporals.format(m.createdAt, 'yyyy-MM-dd')}">
+                    2025-11-14
+                </td>
+
+                <!-- 관리(삭제) -->
+                <td>
+                    <form th:action="@{|/adminEdu/adminEduDelete/${m.materialId}|}"
+                          method="post"
+                          style="display:inline;"
+                          onsubmit="return confirm('정말로 해당 교육 자료를 삭제하시겠습니까?');">
+                        <button type="submit" class="admin_delete_btn">삭제</button>
+                    </form>
+                </td>
+            </tr>
+
+            <!-- 자료가 없을 때 -->
+            <tr th:if="${materials == null or #lists.isEmpty(materials)}">
+                <td colspan="7">등록된 교육자료가 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 자료 목록 페이징 버튼(공통 css,js) -->
+    <div id="pagination" class="paging_btn"
+         th:if="${totalPages > 1}">
+
+        <!-- 이전 -->
+        <a th:if="${page > 1}"
+           th:href="@{/adminEdu/adminEdu(page=${page-1},
+                                    size=${size},
+                                    category=${selectedCategory},
+                                    keyword=${keyword})}">
+            〈
+        </a>
+        <span th:if="${page <= 1}" class="paging_disabled">〈</span>
+
+        <!-- 현재 페이지 / 전체 페이지 -->
+        <span>
+            <span th:text="${page}">1</span>
+            /
+            <span th:text="${totalPages}">1</span>
+        </span>
+
+        <!-- 다음 -->
+        <a th:if="${page < totalPages}"
+           th:href="@{/adminEdu/adminEdu(page=${page+1},
+                                    size=${size},
+                                    category=${selectedCategory},
+                                    keyword=${keyword})}">
+            〉
+        </a>
+        <span th:if="${page >= totalPages}" class="paging_disabled">〉</span>
+    </div>
+</main>
+
+<!-- 푸터(푸터 css) -->
+<div th:replace="~{adminFooter :: footer}"></div>
+</body>
+
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 교육 자료 목록 전용 js -->
+<script src="/adminjs/adminEdu.js"></script>
+
+</html>

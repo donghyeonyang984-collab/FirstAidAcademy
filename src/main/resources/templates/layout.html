@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 페이지 타이틀 (없으면 기본값) -->
+    <title th:text="${pageTitle} ?: 'First Aid Academy'">First Aid Academy</title>
+
+    <!-- 아이콘(fontawesome) 공통 사용 -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- 기존 공통 CSS들(경로는 static 기준으로 맞춰줘) -->
+    <link rel="stylesheet" th:href="@{/css/fragments_css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragments_css/components.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragments_css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragments_css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/fragments_css/sidebar.css}" />
+
+    <!-- 페이지 전용 CSS (예: home.css, news.css 등) -->
+    <!-- 컨트롤러에서 pageCss(List<String>)만 넘겨주면 됨 -->
+    <th:block th:if="${pageCss != null}">
+        <link rel="stylesheet"
+              th:each="path : ${pageCss}"
+              th:href="@{${path}}" />
+    </th:block>
+</head>
+
+<body>
+<div class="layout-root">
+
+    <!-- 공통 헤더 -->
+    <!-- activeMenu 값: 'HOME','COURSE','NEWS','GAME','MYCLASS' 중 하나 -->
+    <header th:replace="~{fragments/header :: header(${activeMenu})}"></header>
+
+
+    <!-- ================================
+         1) 사이드바가 있는 페이지
+         ================================ -->
+    <!-- 예: 교육과정, 소식센터, 나의강의실 -->
+    <div class="container"
+         th:if="${showSidebar}"
+         th:classappend="' has-sidebar'">
+
+        <!-- 헤더 activeMenu 값에 따라 딱 하나의 사이드바만 표시 -->
+        <th:block th:switch="${activeMenu}">
+
+            <!-- 교육과정 사이드바 -->
+            <th:block th:case="'COURSE'">
+                <th:block th:replace="~{fragments/sidebarC :: sidebar}"></th:block>
+            </th:block>
+
+            <!-- 소식센터 사이드바 -->
+            <th:block th:case="'NEWS'">
+                <th:block th:replace="~{fragments/sidebarN :: sidebar}"></th:block>
+            </th:block>
+
+            <!-- 응급처치 게임 사이드바 -->
+            <th:block th:case="'GAME'">
+                <th:block th:replace="~{fragments/sidebarG :: sidebar}"></th:block>
+            </th:block>
+
+            <!-- 나의 강의실 사이드바 -->
+            <th:block th:case="'MYCLASS'">
+                <th:block th:replace="~{fragments/sidebarM :: sidebar}"></th:block>
+            </th:block>
+
+        </th:block>
+        <!-- (일반 서브페이지용) -->
+        <main class="main main-with-sidebar">
+            <th:block th:replace="~{${contentTemplate} :: content}"></th:block>
+        </main>
+
+    </div>
+
+
+    <!-- ================================
+         2) 사이드바가 없는 페이지
+         ================================ -->
+    <!-- 예: 홈 화면, 인트로처럼 배너를 화면 가득 쓰고 싶은 경우 -->
+    <main class="main main-full"
+          th:if="${showSidebar == null or !showSidebar}">
+        <th:block th:replace="~{${contentTemplate} :: content}"></th:block>
+    </main>
+
+
+    <!-- 공통 푸터 -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</div>
+
+<!-- 공통 스크립트 (방식 그대로 유지) -->
+<script th:src="@{/fragments_js/common.js}"></script>
+<script th:src="@{/fragments_js/pageNationC.js}"></script>
+<script th:src="@{/fragments_js/coursePopUp.js}"></script>
+<!--<script th:src="@{/fragments_js/pageNationT.js}"></script>-->
+<script th:src="@{/fragments_js/faq.js}"></script>
+
+<!-- 페이지 전용 스크립트 (예: 배너, 페이지네이션 등) -->
+<!-- 컨트롤러에서 pageJs(List<String>)만 넘겨주면 됨 -->
+<th:block th:if="${pageJs != null}">
+    <script th:each="path : ${pageJs}" th:src="@{${path}}"></script>
+</th:block>
+
+</body>
+</html>

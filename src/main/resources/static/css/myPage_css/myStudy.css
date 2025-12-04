@@ -1,0 +1,159 @@
+/* ================= 나의 학습 활동 ================= */
+.study{
+    display: flex;
+    justify-content: space-between; 
+    gap: 25px;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    flex-wrap: wrap;
+}
+
+.study-card {
+    flex: 1;              
+    min-width: 250px;     
+    background: #f9f9f9;
+    border: 1px solid #e6edf2; 
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    color: #274e66; 
+    display: flex;         
+    flex-direction: column;
+    justify-content: center;
+}
+
+.study-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.study-icon {
+    font-size: 2.5rem;
+    color: #3b6e91; 
+    margin-bottom: 8px;
+}
+
+.study-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    background: #f5f8fb;
+}
+
+.study-count {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #24323a;
+}
+
+.study-label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333333; 
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+/* ================= 강의 카드 ================= */
+.course-board {
+    display: flex;
+    gap: 20px;
+    background-color: #e6edf2;
+    padding: 30px;
+    border-radius: 12px; 
+    justify-content: flex-start; 
+}
+
+.course-card {
+    flex: 0 0 calc((100% - 40px) / 3); 
+    max-width: calc((100% - 40px) / 3); 
+    background: #fff;
+    border: 1px solid #c7c7c7;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+.thumbnail {
+    background: #eee center/cover no-repeat;
+    height: 270px;
+    border-bottom: 1px solid #eee;
+}
+
+.course-info {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.course-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.category-tags span {
+    background: #e0e7ec;
+    color: #274e66;
+    font-size: 13px;
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin-right: 6px;
+}
+
+.course-desc {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0 18px;
+    min-height: 60px;
+}
+
+.play-btn, .go-btn {
+    width: 110px;
+    background: #3b6e91;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.play-btn {
+    align-self: flex-end;  /* 오른쪽 끝으로 보내기 */
+}
+
+.play-btn:hover, .go-btn:hover {
+    background: #274e66;
+}
+
+.progress-tags {
+    margin: 12px 0;
+}
+
+.progress-tag {
+    display: inline-block;
+    background: #e6edf2;
+    color: #274e66;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 6px 14px;
+    border-radius: 25px;        
+    letter-spacing: 0.5px;
+    transition: transform 0.2s;
+}

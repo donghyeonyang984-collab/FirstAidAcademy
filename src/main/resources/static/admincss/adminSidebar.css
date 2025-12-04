@@ -1,0 +1,99 @@
+/* 관리자 사이드바 */
+#admin_sidebar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #dcdcdc;
+    padding-top: 50px;
+}
+
+/* 상단 홈 */
+.admin_home {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
+    display: block;
+    text-align: left;
+    margin-top: -30px;
+    margin-bottom: -10px;
+    margin-left: 20px;
+}
+
+/* 메뉴 영역 */
+.admin_sidebar_menu {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.admin_sidebar_menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* 상위 메뉴 버튼 */
+.sidebar_toggle {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+/* 화살표 표시 */
+.sidebar_toggle::after {
+    content: "▾";
+    font-size: 25px;
+    transition: transform 0.2s ease;
+}
+
+/* 열렸을 때 화살표 회전 */
+.aSidebar_sub.active .sidebar_toggle::after {
+    transform: rotate(180deg);
+}
+
+/* 하위 메뉴 */
+.aSidebar_sub_menu {
+    display: none;
+    background-color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.aSidebar_sub.active .aSidebar_sub_menu {
+    display: block;
+}
+
+/* 하위 항목 스타일 */
+.aSidebar_sub_menu li a {
+    display: block;
+    padding: 10px 45px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.aSidebar_sub_menu li a:hover {
+    color: #4071fa;
+    font-weight: 500;
+}
+
+/* 선택된 하위 항목 강조 */
+.aSidebar_sub_menu li a.active {
+    color: #4071fa;
+    font-weight: 500;
+}

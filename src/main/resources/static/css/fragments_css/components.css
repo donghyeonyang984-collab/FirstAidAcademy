@@ -1,0 +1,274 @@
+/* 메인 타이틀 간격 */
+.main h1 { margin-bottom: 50px; }
+
+/* ===== 필터 & 검색 ===== */
+.filter-search {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  width: 500px;
+}
+
+.filter-select {
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  padding: 8px 30px;
+  font-size: 15px;
+  background: #b9c6d3; /* 오타 보정 */
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='black' height='8' width='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l6 6 6-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+}
+
+.search-box { position: relative; flex: 1; }
+
+.search-box input {
+  width: 100%;
+  padding: 8px 40px 8px 14px;
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.search-box i {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+/* ===== QnA 상단바 ===== */
+.qna-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.qna-search-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.qna-filter-select {
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  padding: 8px 30px;
+  font-size: 15px;
+  background: #ffffff;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='black' height='8' width='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l6 6 6-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+}
+
+.qna-search-box { position: relative; width: 500px; }
+
+.qna-search-box input {
+  width: 100%;
+  padding: 8px 40px 8px 14px;
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.qna-search-box i {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+.qna-write-btn a {
+  display: inline-flex;
+  align-items: center;
+  background: #3b6e91;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.qna-write-btn a:hover { background: #274e66; }
+.qna-write-btn i { margin-right: 6px; }
+
+/* ===== 페이지네이션 ===== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* 합쳐져 있던 gap 정리 */
+  margin: 30px 0;
+  font-size: 15px;
+  flex-wrap: wrap;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.page-numbers li {
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.page-numbers li:hover { background-color: #f0f4f8; }
+
+.page-numbers li.active {
+  font-size: 16px;
+  color: #3b6e91;
+}
+
+.page-btn {
+  background-color: #3b6e91;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.page-btn:disabled { opacity: 0.5; cursor: default; }
+
+/* ===== 테이블(자료 리스트 등) ===== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th {
+  background: #3b6e91;
+  color: white;
+  padding: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.table td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 17px;
+}
+
+.table tr:hover { background: #f5f8fb; }
+
+.table a { text-decoration: none; color: #333; transition: color 0.2s; }
+.table a:hover { color: #274e66; }
+
+/* 컬럼 폭 */
+.table th:nth-child(1), .table td:nth-child(1) { width: 13%; }
+.table th:nth-child(2), .table td:nth-child(2) { width: 50%; padding-left: 20px; }
+.table th:nth-child(3), .table td:nth-child(3) { width: 17%; }
+.table th:nth-child(4), .table td:nth-child(4) { width: 20%; }
+
+/* ===== 문의사항 테이블 ===== */
+.question-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.question-table th {
+  background: #3b6e91;
+  color: white;
+  padding: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.question-table td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 17px;
+  vertical-align: middle;
+}
+
+.question-table tr:hover { background: #f5f8fb; }
+
+.question-table a { text-decoration: none; color: #333; transition: color 0.2s; }
+.question-table a:hover { color: #274e66; }
+
+/* 컬럼 폭 */
+.question-table th:nth-child(1), .question-table td:nth-child(1) { width: 5%; }
+.question-table th:nth-child(2), .question-table td:nth-child(2) { width: 35%; padding-left: 20px; }
+.question-table th:nth-child(3), .question-table td:nth-child(3) { width: 15%; }
+.question-table th:nth-child(4), .question-table td:nth-child(4) { width: 20%; }
+.question-table th:nth-child(5), .question-table td:nth-child(5) { width: 20%; }
+
+/* 상태 배지 */
+.question-table td.answer .status {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
+  height: 34px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 0 12px;
+  transition: all 0.2s ease;
+}
+
+/* 완료 */
+.question-table td.answer .status.done {
+  color: #2e7d32;
+  background: #e8f5e9;
+  border: 1.5px solid #81c784;
+}
+
+/* 대기 */
+.question-table td.answer .status.pending {
+  color: #c62828;
+  background: #ffebee;
+  border: 1.5px solid #ef9a9a;
+}
+
+/* (원문 유지) 셀 자체에 상태 클래스를 줄 때 표시용 */
+.question-table td.answer.done::before {
+  color: #2e7d32;
+  background: #e8f5e9;
+  border: 1.5px solid #81c784;
+  content: "답변완료";
+  border-radius: 20px;
+  padding: 6px 10px;
+  margin-right: 6px;
+}
+
+.question-table td.answer.pending::before {
+  color: #c62828;
+  background: #ffebee;
+  border: 1.5px solid #ef9a9a;
+  content: "답변대기";
+  border-radius: 20px;
+  padding: 6px 10px;
+  margin-right: 6px;
+}

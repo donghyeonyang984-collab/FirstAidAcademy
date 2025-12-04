@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <h2 class="course-page-title" th:text="${pageTitle}">교육 자료</h2>
+
+    <form class="filter-search"
+          th:action="@{/courses/data}"
+          method="get">
+
+        <!-- 상단 카테고리 필터 -->
+        <select class="filter-select" name="topCategory">
+            <option value="" th:selected="${topCategory == null or topCategory == ''}">전체</option>
+            <option value="구조자" th:selected="${topCategory == '구조자'}">구조자</option>
+            <option value="자가" th:selected="${topCategory == '자가'}">자가</option>
+        </select>
+
+        <div class="search-box">
+            <input type="text"
+                   name="keyword"
+                   placeholder="자료 검색"
+                   th:value="${keyword}">
+            <button type="submit" class="course-search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </form>
+
+    <div class="data-list">
+        <div class="data-card" th:each="m : ${materials}">
+            <div class="data-header">
+                <div class="data-title">
+                    <h3 th:text="${m.title}">골절 처치 지침서</h3>
+                    <div class="data-tags">
+                        <span th:text="${m.midCategory.dbValue}">화상</span>
+                        <span th:text="${m.topCategory.dbValue}">구조자</span>
+                    </div>
+                </div>
+                <div class="file-type">
+                    <!-- 새 탭에서 PDF 미리보기 (inline) -->
+                    <a th:href="@{/materials/{id}/preview(id=${m.materialId})}"
+                       target="_blank">
+                        미리보기
+                    </a>
+
+                    <!-- 바로 다운로드 -->
+                    <a th:href="@{/materials/{id}/download(id=${m.materialId})}"
+                       class="download-link"
+                       title="다운로드">
+                        <i class="fa-solid fa-download"></i>
+                    </a>
+                </div>
+            </div>
+
+            <p class="data-desc" th:utext="${m.contentHtml}">
+                화상 상황에서 기본적으로 수행해야 할 응급처치 절차를 안내하는 자료입니다.
+            </p>
+
+            <div class="data-footer">
+            <span class="writer">
+                작성자 :
+                <span th:text="${m.writerName}">한국응급처치센터</span>
+            </span>
+                <span class="date">
+                작성일 :
+                <span th:text="${#temporals.format(m.createdAt, 'yyyy-MM-dd')}">2025-10-21</span>
+            </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <button class="page-btn prev">&lt;</button>
+        <ul class="page-numbers"></ul>
+        <button class="page-btn next">&gt;</button>
+    </div>
+
+</th:block>
+
+</body>
+</html>

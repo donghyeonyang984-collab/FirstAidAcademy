@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <!-- 게임 소개 메인 컨텐츠 -->
+    <section class="game_intro_section">
+
+        <!-- 페이지 타이틀 -->
+        <h1 class="game_intro_title title_ani">응급 처치 시뮬레이션 게임</h1>
+        <p class="game_intro_sub fade-up">
+            상황별 응급 처치를 실제처럼 학습할 수 있는 시뮬레이션 게임입니다.
+        </p>
+
+        <!-- 게임 맵 소개 영역 -->
+        <div class="game_map_grid fade-up">
+
+            <!-- 맵 1: 심정지 -->
+            <div class="game_map_card">
+                <div class="map_img_box">
+                    <img th:src="@{/images/cpr.png}"
+                         src="/images/map_cardiac.png"
+                         alt="심정지 맵">
+                </div>
+                <h2 class="map_title">심정지</h2>
+                <p class="map_desc">
+                    갑작스러운 심정지 발생 상황에서 CPR 및 AED 사용법을 단계별로 학습합니다.
+                </p>
+            </div>
+
+            <!-- 맵 2: 기도 막힘 -->
+            <div class="game_map_card">
+                <div class="map_img_box">
+                    <img th:src="@{/images/HM.png}"
+                         src="/images/map_airway.png"
+                         alt="기도 막힘 맵">
+                </div>
+                <h2 class="map_title">기도 막힘</h2>
+                <p class="map_desc">
+                    성인과 영아의 기도 폐쇄 상황을 구분하여 적절한 응급 처치를 수행합니다.
+                </p>
+            </div>
+
+            <!-- 맵 3: 화상 -->
+            <div class="game_map_card">
+                <div class="map_img_box">
+                    <img th:src="@{/images/burn.png}"
+                         src="/images/map_burn.png"
+                         alt="화상 맵">
+                </div>
+                <h2 class="map_title">화상</h2>
+                <p class="map_desc">
+                    다양한 등급의 화상을 식별하고 적절한 응급 대처를 연습합니다.
+                </p>
+            </div>
+
+            <!-- 맵 4: 출혈 -->
+            <div class="game_map_card">
+                <div class="map_img_box">
+                    <img th:src="@{/images/bleeding.png}"
+                         src="/images/map_bleeding.png"
+                         alt="출혈 맵">
+                </div>
+                <h2 class="map_title">출혈</h2>
+                <p class="map_desc">
+                    지혈법, 압박법 등 상황별 출혈 응급 처치를 실습합니다.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- 배지 & 이수증 안내 섹션 -->
+        <section class="badge_info_section fade-up">
+
+            <h2 class="badge_info_title">배지 획득 & 이수증 발급 안내</h2>
+
+            <div class="badge_info_cards">
+
+                <!-- 배지 안내 -->
+                <div class="badge_card">
+                    <i class="fa-solid fa-award badge_icon"></i>
+                    <h3 class="badge_card_title">배지 수령 방법</h3>
+                    <p class="badge_card_desc">
+                        게임 내에서 별을 획득하면 자동으로 배지가 지급됩니다.<br>
+                        각 맵마다 다른 조건으로 별을 획득할 수 있어<br>
+                        다양한 응급 상황을 경험하며 배지를 모아보세요.
+                    </p>
+                </div>
+
+                <!-- 이수증 안내 -->
+                <div class="badge_card">
+                    <i class="fa-solid fa-certificate badge_icon"></i>
+                    <h3 class="badge_card_title">이수증 발급 기준</h3>
+                    <p class="badge_card_desc">
+                        총 4가지 응급 상황 중<br>
+                        배지를 3개 이상 모으면 이수증 발급이 가능합니다.<br>
+                        이수증은 나의 게임 기록에서 확인할 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 배지 갤러리 (4가지 배지) -->
+        <section class="badge_gallery_section">
+
+            <h2 class="badge_gallery_title">게임 배지 모음</h2>
+
+            <div class="badge_gallery_grid">
+
+                <!-- 배지 1: 출혈 -->
+                <div class="badge_item">
+                    <div class="badge_img_box">
+                        <img th:src="@{/images/badge1.png}"
+                             src="/images/badge1.png"
+                             alt="출혈 배지">
+                    </div>
+                    <p class="badge_name">출혈 배지</p>
+                </div>
+
+                <!-- 배지 2: 기도 막힘 -->
+                <div class="badge_item">
+                    <div class="badge_img_box">
+                        <img th:src="@{/images/badge2.png}"
+                             src="/images/badge2.png"
+                             alt="기도 막힘 배지">
+                    </div>
+                    <p class="badge_name">기도 막힘 배지</p>
+                </div>
+
+                <!-- 배지 3: 심정지 -->
+                <div class="badge_item">
+                    <div class="badge_img_box">
+                        <img th:src="@{/images/badge3.png}"
+                             src="/images/badge3.png"
+                             alt="심정지 배지">
+                    </div>
+                    <p class="badge_name">심정지 배지</p>
+                </div>
+
+                <!-- 배지 4: 화상 -->
+                <div class="badge_item">
+                    <div class="badge_img_box">
+                        <img th:src="@{/images/badge4.png}"
+                             src="/images/badge4.png"
+                             alt="화상 배지">
+                    </div>
+                    <p class="badge_name">화상 배지</p>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- 게임 실행 안내 -->
+        <div class="game_howto_box fade-up">
+            <h3 class="howto_title">게임 실행 방법</h3>
+            <div class="howto_steps_vertical">
+                <div class="howto_step_item">
+                    <p><strong>1.</strong> 아래의 <strong>게임 다운로드 </strong> 버튼을 클릭합니다.</p>
+                </div>
+                <div class="arrow_down">↓</div>
+                <div class="howto_step_item">
+                    <p><strong>2.</strong> 다운로드된 압축 파일을 <strong>C:\Games폴더에 압축 해제</strong> 합니다.</p>
+                </div>
+                <div class="arrow_down">↓</div>
+                <div class="howto_step_item">
+                    <p><strong>3.</strong> 나의 배지보관함 페이지 에서 <strong>게임시작 버튼클릭 해서</strong> 플레이하기 </p>
+                </div>
+            </div>
+        </div>
+        <!-- 게임 버튼 -->
+        <div class="game_start_btn_box">
+            <button id="go_game_page" class="game_start_btn" type="button">
+                게임 다운로드 →
+            </button>
+        </div>
+
+    </section>
+
+    <!-- 페이지 전용 스크립트 -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // 모든 fade-up 요소 자동 등장
+            const fadeEls = document.querySelectorAll(".fade-up");
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("on");
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            fadeEls.forEach(function (el) {
+                observer.observe(el);
+            });
+
+            // 게임 맵 카드 순차 애니메이션
+            const mapCards = document.querySelectorAll(".game_map_card");
+
+            mapCards.forEach(function (card, index) {
+                card.classList.add("map_ani");
+                card.style.transitionDelay = (index * 0.15) + "s";
+                observer.observe(card);
+            });
+
+            // "게임하러 가기" 버튼 클릭 시 게임 리스트 페이지로 이동
+            const goGameBtn = document.getElementById("go_game_page");
+            if (goGameBtn) {
+                goGameBtn.addEventListener("click", function () {
+                    window.location.href = "/game/download";
+                });
+            }
+        });
+
+    </script>
+
+</th:block>
+
+</body>
+</html>

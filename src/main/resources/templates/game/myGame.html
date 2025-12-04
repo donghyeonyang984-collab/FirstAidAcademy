@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <div class="badgeMain">
+        <div class="badgeWrapper">
+
+            <!-- 상단 헤더 / 요약 영역 -->
+            <div class="badgeHeader">
+                <div class="badgeHeader-text">
+                    <h2 class="badge-title"> 게임 배지 보관함</h2>
+                    <p class="badge-subtitle">
+                        미니게임을 클리어하면 배지를 획득하고,<br>
+                        모든 배지를 모으면 응급 처치 수료 여정이 완성됩니다.
+                    </p>
+                </div>
+
+                <div class="badge-tags">
+                    <span class="badge-tag">게임 연동</span>
+                    <span class="badge-tag">배지 수집</span>
+                    <span class="badge-tag">수료증 발급</span>
+                </div>
+
+                <!-- 배지 진행도 -->
+                <div class="badgeProgress">
+                    <div class="badgeProgress-text">
+                        <span class="progress-label">획득 배지</span>
+                        <span class="progress-count">
+                        <span id="ownedBadgeCount">0</span> / 4
+                    </span>
+                    </div>
+                    <div class="badge-progress-bar">
+                        <div class="badge-progress-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 상단 안내 박스 -->
+            <div class="contentBox">
+                <p>
+                <span class="name"
+                      th:text="${userName} ?: '회원'">김**</span>
+                    님의 배지 획득 현황입니다.
+                </p>
+                <p>획득한 뱃지를 통해 학습 기록을 확인 할 수 있습니다.</p>
+                <p>계속 도전하여 모든 응급처치를 마스터해보세요!</p>
+            </div>
+
+            <!-- 배지/키트 영역 -->
+            <div class="kitContainer">
+                <img th:src="@{/images/kit.png}"
+                     src="/images/kit.png"
+                     class="kitImg"
+                     alt="응급 처치 키트">
+
+                <!-- 1. CPR(심정지) 배지 : 맨 왼쪽 자리 = badge1 -->
+                <div class="badgeItem locked" data-type="cpr">
+                    <img th:src="@{/images/badge3.png}"
+                         src="/images/badge3.png"
+                         class="badges"
+                         id="badge1"
+                         alt="심정지 배지">
+                    <div class="badgeInfo">
+                        <div class="tooltipTitle">심정지 배지</div>
+                        <div class="tooltipDate">
+                            <span>- 클리어 날짜 : </span>
+                            <span th:if="${badgeDates != null and badgeDates['cpr'] != null}"
+                                  th:text="${badgeDates['cpr']}">2025-11-19</span>
+                            <span th:unless="${badgeDates != null and badgeDates['cpr'] != null}">
+                                미획득
+                            </span>
+                        </div>
+                        <div class="tooltipContent">
+                            - 게임 내용 :
+                            <br> CPR 심장 압박을 리듬게임으로 배워보자.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. 기도막힘 배지 : 두 번째 자리 = badge2 -->
+                <div class="badgeItem locked" data-type="airway">
+                    <img th:src="@{/images/badge2.png}"
+                         src="/images/badge2.png"
+                         class="badges"
+                         id="badge2"
+                         alt="기도막힘 배지">
+                    <div class="badgeInfo">
+                        <div class="tooltipTitle">기도막힘 배지</div>
+                        <div class="tooltipDate">
+                            <span>- 클리어 날짜 : </span>
+                            <span th:if="${badgeDates != null and badgeDates['airway'] != null}"
+                                  th:text="${badgeDates['airway']}">2025-11-19</span>
+                            <span th:unless="${badgeDates != null and badgeDates['airway'] != null}">
+                                미획득
+                            </span>
+                        </div>
+                        <div class="tooltipContent">
+                            - 게임 내용 :
+                            <br> 하임리히법
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 출혈 배지 : 세 번째 자리 = badge3 -->
+                <div class="badgeItem locked" data-type="bleeding">
+                    <img th:src="@{/images/badge1.png}"
+                         src="/images/badge1.png"
+                         class="badges"
+                         id="badge3"
+                         alt="출혈 배지">
+                    <div class="badgeInfo">
+                        <div class="tooltipTitle">출혈 배지</div>
+                        <div class="tooltipDate">
+                            <span>- 클리어 날짜 : </span>
+                            <!-- 값 있으면 날짜 표시 -->
+                            <span th:if="${badgeDates != null and badgeDates['bleeding'] != null}"
+                                  th:text="${badgeDates['bleeding']}">2025-11-19</span>
+                            <!-- 값 없으면 미획득 -->
+                            <span th:unless="${badgeDates != null and badgeDates['bleeding'] != null}">
+                                미획득
+                            </span>
+                        </div>
+                        <div class="tooltipContent">
+                            - 게임 내용 :
+                            <br> 알맞은 응급처치 도구를 이용해 지혈한다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. 화상 배지 : 네 번째 자리 = badge4 -->
+                <div class="badgeItem locked" data-type="burn">
+                    <img th:src="@{/images/badge4.png}"
+                         src="/images/badge4.png"
+                         class="badges"
+                         id="badge4"
+                         alt="화상 배지">
+                    <div class="badgeInfo">
+                        <div class="tooltipTitle">화상 배지</div>
+                        <div class="tooltipDate">
+                            <span>- 클리어 날짜 : </span>
+                            <span th:if="${badgeDates != null and badgeDates['burn'] != null}"
+                                  th:text="${badgeDates['burn']}">2025-11-19</span>
+                            <span th:unless="${badgeDates != null and badgeDates['burn'] != null}">
+                                미획득
+                            </span>
+                        </div>
+                        <div class="tooltipContent">
+                            - 게임 내용 :
+                            <br> 화재 건물에서 응급 환자를 구출한다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 버튼 그룹 -->
+                <div class="btnGroup">
+                    <a th:href="@{/game/runUnity}"
+                       href="/game/runUnity"
+                       class="btn primary-btn">
+                        게임 실행
+                    </a>
+                    <a th:href="@{/certificate/myCertificate.html}"
+                       href="/certificate/myCertificate.html"
+                       class="btn secondary-btn">
+                        수료증 발급
+                    </a>
+                </div>
+
+            </div><!-- /.kitContainer -->
+
+            <!-- 하단 안내 텍스트 -->
+            <div class="badge-footer">
+                <p>
+                    배지를 클릭하면 게임 설명과 클리어 날짜를 확인할 수 있어요.
+                    <br>모든 배지를 모은 뒤 수료증 발급 버튼을 눌러 응급 처치 마스터에 도전해보세요.
+                </p>
+            </div>
+
+        </div><!-- /.badgeWrapper -->
+    </div><!-- /.badgeMain -->
+
+    <!-- 뱃지 잠금/해제 JS -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        // 백엔드에서 내려준 뱃지 보유 정보 (Map<String, Boolean>)
+        // 예: {cpr=true, airway=false, bleeding=true, burn=false}
+        const badgeData = /*[[${badgeData}]]*/ {};
+
+        if (badgeData) {
+            Object.keys(badgeData).forEach(function(key) {
+                const badge = document.querySelector('.badgeItem[data-type="' + key + '"]');
+                if (!badge) return;
+
+                if (badgeData[key]) {
+                    badge.classList.remove('locked');
+                } else {
+                    badge.classList.add('locked');
+                }
+            });
+        }
+        // ⭐ 배지 진행도(개수/4 + 프로그레스 바) 계산
+        const totalBadges   = document.querySelectorAll('.badgeItem').length;
+        const ownedBadges   = document.querySelectorAll('.badgeItem:not(.locked)').length;
+        const ownedBadgeEl  = document.getElementById('ownedBadgeCount');
+        const progressFill  = document.querySelector('.badge-progress-bar-fill');
+
+        if (ownedBadgeEl) {
+            ownedBadgeEl.textContent = ownedBadges;
+        }
+        if (progressFill && totalBadges > 0) {
+            const rate = (ownedBadges / totalBadges) * 100;
+            progressFill.style.width = rate + '%';
+        }
+        /*]]>*/
+    </script>
+
+</th:block>
+
+</body>
+</html>

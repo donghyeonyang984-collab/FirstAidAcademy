@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <main id="container">
+        <div id="about_main">
+            <!-- ① 히어로 섹션 -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>
+                        생명을 지키는 첫걸음,
+                        <span>First Aid Academy</span>
+                    </h1>
+                    <p>누구나, 언제 어디서나 배우는 응급 교육 플랫폼</p>
+                </div>
+            </section>
+
+            <!-- ② 플랫폼 소개 -->
+            <section class="about">
+                <h2 class="section-title">First Aid Academy란?</h2>
+                <p class="section-desc">
+                    First Aid Academy는 이론과 실습을 결합한 온라인 응급처치 교육 플랫폼입니다.<br />
+                    실감형 시뮬레이션과 이수증 발급 시스템으로 학습자에게 안전 역량을 길러줍니다.
+                </p>
+
+                <div class="about-icons">
+                    <div class="icon-item">
+                        <i class="fa-solid fa-laptop-medical"></i>
+                        <p>온라인 이론 교육</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="fa-solid fa-vr-cardboard"></i>
+                        <p>응급 시뮬레이션</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="fa-solid fa-certificate"></i>
+                        <p>이수증 자동 발급</p>
+                    </div>
+                    <div class="icon-item">
+                        <i class="fa-solid fa-robot"></i>
+                        <p>AI 기반 시험 문제 제출</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ③ 주요 기능 -->
+            <section class="features">
+                <h2 class="section-title">주요 기능</h2>
+                <ul class="feature-list">
+                    <li>
+                        <i class="fa-solid fa-book-open"></i> 체계적인 강의 수강 시스템
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check-double"></i> 학습 진도 및 평가 관리
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-award"></i> 수료와 동시에 인증서 발급
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-gamepad"></i> 응급 시뮬레이션 게임
+                    </li>
+                </ul>
+            </section>
+
+            <!-- ④ 학습 프로세스 -->
+            <section class="learning-flow">
+                <h2 class="section-title">학습 절차</h2>
+                <div class="flow-steps">
+                    <div class="step"><span>1</span> 회원가입</div>
+                    <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    <div class="step"><span>2</span> 강의 수강</div>
+                    <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    <div class="step"><span>3</span> 테스트 시험</div>
+                    <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    <div class="step"><span>4</span> 수료증 발급</div>
+                </div>
+            </section>
+
+            <!-- ⑤ 학습 현황 -->
+            <section class="stats">
+                <h2 class="section-title">누적 학습 현황</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <strong>12,450명</strong>
+                        <p>누적 수강생</p>
+                    </div>
+                    <div class="stat-item">
+                        <strong>98%</strong>
+                        <p>평균 수료율</p>
+                    </div>
+                    <div class="stat-item">
+                        <strong>50+</strong>
+                        <p>교육 콘텐츠</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ⑥ 목표 -->
+            <section class="mission">
+                <h2 class="section-title">우리의 목표</h2>
+                <p class="mission-text">
+                    응급처치는 선택이 아닌 필수입니다.<br />
+                    First Aid Academy는 모두가 생명을 지킬 수 있는 세상을 만듭니다.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- 스크롤 애니메이션 스크립트 -->
+    <script>
+        // 스크롤 시 섹션 등장 효과
+        const fadeElements = document.querySelectorAll(
+            ".fade-up, .icon-item, .feature-list, .step, .stat-item, .mission-text"
+        );
+
+        function handleScroll() {
+            fadeElements.forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.85) {
+                    el.classList.add("visible");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("load", handleScroll);
+    </script>
+
+</th:block>
+
+</body>
+</html>

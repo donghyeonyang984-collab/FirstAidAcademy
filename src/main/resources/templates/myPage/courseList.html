@@ -1,0 +1,127 @@
+<!-- src/main/resources/templates/myPage/courseList.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="content">
+
+    <!-- 제목: 컨트롤러에서 pageTitle = "수강 목록"으로 세팅 -->
+    <!-- 제목 -->
+    <h1 th:text="${pageTitle}">미수료</h1>
+
+    <!-- 필터 + 검색 (동작은 courseList와 동일하게 mid만 사용) -->
+    <form class="filter-search"
+          th:action="@{/myPage/courseList}"
+          method="get">
+
+        <!-- 카테고리 필터 -->
+        <select class="filter-select" name="mid">
+            <option value="" th:selected="${selectedMid == ''}">전체</option>
+            <option value="출혈" th:selected="${selectedMid == '출혈'}">출혈</option>
+            <option value="기도막힘" th:selected="${selectedMid == '기도막힘'}">기도막힘</option>
+            <option value="심정지" th:selected="${selectedMid == '심정지'}">심정지</option>
+            <option value="화상" th:selected="${selectedMid == '화상'}">화상</option>
+        </select>
+
+        <!-- 검색 박스 -->
+        <div class="course-search-box">
+            <input
+                    type="text"
+                    class="course-search-input"
+                    name="keyword"
+                    placeholder="강의 검색"
+                    th:value="${keyword}">
+            <button type="submit" class="course-search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </form>
+
+    <div class="tab-content">
+        <div class="course-list">
+
+            <!-- enrollments : List<EnrollmentListItem> 기준 반복 -->
+            <div class="course-card" th:each="item : ${enrollments}">
+                <div class="thumbnail">
+                    <img th:if="${item.imagePath != null}"
+                         th:src="@{|/images/courses/${item.imagePath}|}"
+                         alt="강의 썸네일">
+                </div>
+
+                <div class="course-info">
+                    <h3 class="course-title" th:text="${item.title}">강의 제목</h3>
+
+                    <div class="category-tags">
+                        <span th:text="${item.topCategory}">구조자</span>
+                        <span th:text="${item.midCategory}">출혈</span>
+                    </div>
+
+                    <p class="course-desc" th:text="${item.summary}">
+                        강의 설명
+                    </p>
+
+                    <div class="mycourse-meta">
+                        <!-- 진도율: progressPercent 필드 기준 -->
+                        <span class="progress-tag">진도율
+                        <span class="course-progress-value"
+                              th:text="${item.progressPercent != null ? item.progressPercent + '%' : '0%'}">
+                            0%
+                            </span>
+                        </span>
+                    </div>
+
+                    <!-- 강의 재생 (모달) -->
+                    <button type="button"
+                            class="apply-btn play-btn"
+                            th:onclick="|openLecturePopup(${item.enrollmentId}, ${item.courseId})|">
+                        강의 재생
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- 비어 있을 때 -->
+            <div class="empty-result"
+                 th:if="${#lists.isEmpty(enrollments)}"
+                 style="margin-top: 24px; color:#6b7280; font-size:14px;">
+                수강 중인 강의가 없습니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- 강의 재생 모달이 삽입될 컨테이너 -->
+    <div id="lecturePopupContainer"></div>
+
+    <script>
+        async function openLecturePopup(enrollmentId, courseId) {
+            const container = document.getElementById("lecturePopupContainer");
+            if (!container) return;
+
+            try {
+                const res = await fetch(
+                    "/myPage/lecturePopup?enrollmentId=" + enrollmentId + "&courseId=" + courseId
+                );
+                if (!res.ok) {
+                    console.error("lecturePopup load error", res.status);
+                    return;
+                }
+                const html = await res.text();
+                container.innerHTML = html;
+
+                // 팝업 HTML이 들어간 뒤 초기화
+                if (typeof initLecturePopup === "function") {
+                    initLecturePopup(enrollmentId, courseId);
+                }
+            } catch (e) {
+                console.error("openLecturePopup error", e);
+            }
+        }
+    </script>
+
+    <div class="pagination" th:if="${!#lists.isEmpty(enrollments)}">
+        <button class="page-btn prev">&lt;</button>
+        <ul class="page-numbers"></ul>
+        <button class="page-btn next">&gt;</button>
+    </div>
+</th:block>
+</body>
+</html>

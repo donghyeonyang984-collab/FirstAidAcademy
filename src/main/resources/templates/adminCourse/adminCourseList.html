@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육 강의 목록</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 강의 목록 전용 -->
+    <link rel="stylesheet" href="/admincss/adminCourseList.css">
+</head>
+
+<body>
+    <!-- 헤더(헤더 css) -->
+    <div th:replace="~{adminHeader :: header}"></div>
+    <!-- 사이드바(사이드바 css, 공통 js) -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+    <!-- 메인(공통 css) -->
+    <main id="container">
+        <!-- 맨 위 타이틀(공통 css) -->
+        <h3 class="main_title">강의목록</h3>
+        <div class="admin_tot_srch_box">
+            <div class="admin_totCnt_box">
+                <p>Total : <span id="admin_tot_cnt"></span> 건</p>
+                <select id="admin_row_select">
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+                <span>건씩 보기</span>
+            </div>
+            <!-- 카테고리 선택 -->
+            <div class="courseList_srch_status">
+                <input type="radio" id="status_self" name="courseList_status" value="자가">
+                <label for="status_self">자가 응급 처치</label>
+                <input type="radio" id="status_succor" name="courseList_status" value="구조자">
+                <label for="status_succor">구조자 응급 처치</label>
+            </div>
+            <!-- 강의 영상 검색 (공통 css) -->
+            <div class="admin_srch_field">
+                <input type="text" name="courseList_keyword" class="admin_srch_input" placeholder="강의 제목을 입력해 주세요.">
+                <button type="submit" class="admin_srch_icon">
+                    <img src="/images/srchImg.png" alt="검색">
+                </button>
+            </div>
+        </div>
+        <!-- 영상 목록 테이블 (공통 css) -->
+        <div id="admin_courseList_box" class="admin_table_box">
+            <table id="admin_courseList_table" class="admin_table_cont">
+                <thead>
+                    <tr>
+                        <th style="width: 70px;">No.</th>
+                        <th style="width: 150px;">강의 썸네일</th>
+                        <th style="width: 300px;">제목</th>
+                        <th style="width: 150px;">등록자</th>
+                        <th style="width: 150px;">등록일</th>
+                        <th style="width: 100px;">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- js에서 더미데이터 사용(화면 확인용) -->
+                </tbody>
+            </table>
+
+
+            <template id="course-row-template">
+                <tr>
+                    <td class="no"></td>
+                    <td class="thumb"><img alt="" width="80" height="60"></td>
+                    <td class="title">
+                        <div class="course_title_box">
+                            <p class="course_category"></p>
+                            <a class="course_link" href="#"></a>
+                        </div>
+                    </td>
+                    <td class="admin">관리자</td>
+                    <td class="date"></td>
+                    <td class="delete"><button class="admin_delete_btn">삭제</button></td>
+                </tr>
+            </template>
+
+        </div>
+        <!-- 영상 목록 페이징 버튼(공통 css,js) -->
+        <div id="pagination" class="paging_btn"></div>
+    </main>
+    <!-- 푸터(푸터 css) -->
+    <div th:replace="~{adminFooter :: footer}"></div>
+</body>
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 강의 목록 전용 js -->
+<script src="/adminjs/adminCourseList.js"></script>
+
+</html>

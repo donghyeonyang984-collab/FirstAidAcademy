@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="footer">
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <span class="brand-main">First Aid</span>
+                <span class="brand-sub">Academy</span>
+            </div>
+
+            <div class="footer-links">
+                <a th:href="@{/courses/courses.html}">강의목록</a>
+                <a th:href="@{/news/notice.html}">공지사항</a>
+                <a href="#">게임콘텐츠</a>
+                <a th:href="@{/myPage/myStudy.html}">나의학습활동</a>
+            </div>
+
+            <div class="footer-info">
+                <p>© First Aid Academy. All Rights Reserved.</p>
+                <p>tel: 042-222-2402 | 주소 : 대전광역시 중구 중앙로121번길 20</p>
+            </div>
+        </div>
+    </footer>
+
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강의목록</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<th:block th:fragment="content">
+
+    <!-- 페이지 제목 -->
+    <div class="course-page-title">
+        <h2 th:text="${pageTitle}">강의 목록</h2>
+    </div>
+
+    <!-- 탭 + 검색 -->
+    <div class="tab-container">
+
+        <div class="tabs-and-search">
+            <!-- 왼쪽: 탭 -->
+            <div class="tabs">
+                <!-- 전체 -->
+                <a class="tab"
+                   th:classappend="${selectedTop == ''} ? ' active'"
+                   th:href="@{|/courses?mid=${selectedMid}&q=${keyword}&sort=${sort}|}">
+                    전체
+                </a>
+
+                <!-- 구조자 응급처치 -->
+                <a class="tab"
+                   th:classappend="${selectedTop == '구조자'} ? ' active'"
+                   th:href="@{|/courses?top=구조자&mid=${selectedMid}&q=${keyword}&sort=${sort}|}">
+                    구조자 응급처치
+                </a>
+
+                <!-- 자가 응급처치 -->
+                <a class="tab"
+                   th:classappend="${selectedTop == '자가'} ? ' active'"
+                   th:href="@{|/courses?top=자가&mid=${selectedMid}&q=${keyword}&sort=${sort}|}">
+                    자가 응급처치
+                </a>
+            </div>
+
+            <!-- 오른쪽: 검색바 -->
+            <form class="course-search-form" th:action="@{/courses}" method="get">
+                <input type="hidden" name="top" th:value="${selectedTop}">
+                <input type="hidden" name="mid" th:value="${selectedMid}">
+
+                <div class="search-box">
+                    <input type="text" name="q" th:value="${keyword}" placeholder="강의 검색"/>
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 강의 카드 리스트 -->
+        <div class="tab-content">
+            <div class="course-list">
+
+                <!-- CourseListItem: courseId, title, summary, imagePath, topCategory, midCategory -->
+                <div class="course-card" th:each="course : ${courses}">
+                    <div class="thumbnail">
+                        <img th:src="@{|/images/courses/${course.imagePath}|}"
+                             alt="강의 썸네일">
+                    </div>
+
+                    <div class="course-info">
+                        <h3 class="course-title" th:text="${course.title}">강의 제목</h3>
+
+                        <div class="category-tags">
+                            <span th:text="${course.topCategory}">TOP</span>
+                            <span th:text="${course.midCategory}">MID</span>
+                        </div>
+
+                        <p class="course-desc" th:text="${course.summary}">
+                            강의 설명
+                        </p>
+
+                        <form th:action="@{|/courses/${course.courseId}/enroll|}"
+                              method="post"
+                              onsubmit="return confirm('이 강의를 수강 신청하시겠습니까?');">
+                            <!-- (Spring Security 쓰면 CSRF hidden 필드 추가) -->
+                            <button type="submit" class="apply-btn">
+                                수강신청 하기
+                            </button>
+                        </form>
+                </div>
+
+                <!-- 강의가 없을 때 -->
+                <div class="empty-result" th:if="${#lists.isEmpty(courses)}">
+                    등록된 강의가 없습니다.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 페이지네이션 -->
+    <div class="pagination" th:if="${totalPages > 0}">
+        <!-- 이전 페이지 -->
+        <a class="page-btn prev"
+           th:if="${currentPage > 1}"
+           th:href="@{|/courses?page=${currentPage - 1}&top=${selectedTop}&mid=${selectedMid}&q=${keyword}&sort=${sort}|}">
+            &lt;
+        </a>
+
+        <ul class="page-numbers">
+            <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                th:classappend="${i == currentPage} ? ' active'">
+                <a th:href="@{|/courses?page=${i}&top=${selectedTop}&mid=${selectedMid}&q=${keyword}&sort=${sort}|}"
+                   th:text="${i}">1</a>
+            </li>
+        </ul>
+
+        <!-- 다음 페이지 -->
+        <a class="page-btn next"
+           th:if="${currentPage < totalPages}"
+           th:href="@{|/courses?page=${currentPage + 1}&top=${selectedTop}&mid=${selectedMid}&q=${keyword}&sort=${sort}|}">
+            &gt;
+        </a>
+    </div>
+
+
+    <div class="pagination" th:if="${!#lists.isEmpty(enrollments)}">
+        <button class="page-btn prev">&lt;</button>
+        <ul class="page-numbers"></ul>
+        <button class="page-btn next">&gt;</button>
+    </div>
+</th:block>
+</body>
+</html>

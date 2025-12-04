@@ -1,0 +1,275 @@
+/* ------------------------- */
+/* 기본 레이아웃 구조 */
+/* ------------------------- */
+.container {
+    display: flex;
+    min-height: 100vh;
+    background: #f9f9f9;
+}
+
+/* 메인 컨텐츠 */
+.main {
+    flex: 1;
+    padding: 40px;
+    background: #f9f9f9;
+}
+
+/* ------------------------- */
+/* 페이지 제목 */
+/* ------------------------- */
+.course-page-title {
+    margin-bottom: 16px;
+}
+
+.course-page-title h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}
+
+/* ------------------------- */
+/* 검색 영역 */
+/* ------------------------- */
+
+/* 검색 폼 (폭 제한) */
+.course-search-form {
+    flex: 0 0 420px;   /* 필요하면 380~460px 사이로 조절 가능 */
+}
+
+/* course1~4 검색 줄: 검색바만 오른쪽 정렬 */
+.filter-search {
+    display: flex;
+    justify-content: flex-end;   /* 검색바 오른쪽 정렬 */
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;         /* 검색줄과 카드 사이 간격 */
+}
+
+/* form 안에서 검색창 가로 정렬 */
+.filter-search form {
+    display: flex;
+    align-items: center;
+    max-width: 420px;
+    width: 100%;
+}
+
+/* 공통 검색 박스 */
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1; /* 남는 공간 전체를 검색창이 차지 */
+}
+
+.search-box input {
+    width: 100%;
+    padding: 8px 40px 8px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    border: 1px solid #c7c7c7;
+}
+
+.search-box i {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+/* ------------------------- */
+/* 탭 + 검색 (courses 메인 상단) */
+/* ------------------------- */
+
+/* 탭과 검색바를 한 줄에 */
+.tabs-and-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 0 25px;
+}
+
+/* 이 레이아웃 안의 탭은 아래 여백 제거 */
+.tabs-and-search .tabs {
+    margin-bottom: 0;
+}
+
+/* ------------------------- */
+/* 탭 영역 (상단 둥근 탭 버튼) */
+/* ------------------------- */
+
+.tab-container {
+    background: transparent;
+    border: none;
+    padding-top: 5px;
+}
+
+/* 탭 버튼 덩어리 (둥근 카드 + 그림자) */
+.tabs {
+    display: inline-flex;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    margin-bottom: 16px;
+}
+
+/* 각 탭 버튼 */
+.tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;        /* ‘구조자응급처치’ 길이 고려 */
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    text-decoration: none;   /* a 태그 밑줄 제거 */
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 활성 탭 (선택된 탭) */
+.tab.active {
+    background: #274e66;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(39, 78, 102, 0.4);
+}
+
+/* 비활성 탭 호버 */
+.tab:not(.active):hover {
+    background: #f0f0f0;
+}
+
+/* 탭 아래 내용 영역 */
+.tab-content {
+    background: #ffffff;
+    padding: 25px 25px 25px 25px;
+    border-radius: 12px;
+    margin-top: 4px;
+}
+
+/* ------------------------- */
+/* 강의 카드 영역 */
+/* ------------------------- */
+
+/* 카드 컨테이너 */
+.course-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;                /* 카드 간 간격 */
+    justify-content: flex-start;
+}
+
+/* 강의 카드 */
+.course-card {
+    flex: 0 0 calc((100% - 40px) / 3);   /* gap 20px * 2 = 40px 로 맞추기 */
+    max-width: calc((100% - 40px) / 3);
+    background: #fff;
+    border: 1px solid #c7c7c7;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* 카드가 1개만 있을 때 왼쪽 정렬 유지 (보기 자연스럽게) */
+.course-list .course-card:nth-child(1):only-child {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+.course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* 썸네일 */
+.thumbnail {
+    width: 100%;
+    height: 270px;
+    overflow: hidden;
+    background: #eee;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* 이미지 잘리지 않고 썸네일 영역 가득 채우기 */
+    display: block;
+}
+
+/* 강의 정보 */
+.course-info {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+.course-info form {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.course-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.category-tags span {
+    background: #e0e7ec;
+    color: #274e66;
+    font-size: 13px;
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin-right: 6px;
+}
+
+.course-desc {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0 18px;
+    min-height: 40px;
+}
+
+/* 버튼 */
+.apply-btn {
+    align-self: flex-end;
+    width: 110px;
+    background: #3b6e91;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    text-align: center;     /* a 태그인 경우 텍스트 중앙정렬 */
+}
+
+.apply-btn:hover {
+    background: #274e66;
+}
+.play-btn  {
+    align-self: flex-end;
+    width: 110px;
+    background: #3b6e91;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 15px;
+    cursor: pointer;
+    transition:  0.25s ease;
+}

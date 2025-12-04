@@ -1,0 +1,58 @@
+<!-- src/main/resources/templates/fragments/sidebarC.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="sidebar">
+    <aside class="sidebar">
+
+        <div class="sidebar-header">교육과정</div>
+
+        <nav class="sidebar-menu">
+
+            <!-- 소개글 -->
+            <div class="sidebar-item">
+                <a th:href="@{/courses/about}"
+                   th:classappend="${pageTitle == '소개글'} ? ' active'">
+                    소개글
+                </a>
+                <i class="fa-solid fa-info-circle"></i>
+            </div>
+
+            <!-- 강의 목록 -->
+            <div class="sidebar-item">
+                <a th:href="@{/courses/courses.html}"
+                   th:classappend="${pageTitle == '강의목록'} ? ' active'">
+                    강의 목록
+                </a>
+                <i class="fa-solid fa-list"></i>
+            </div>
+
+            <!-- 강의 분류 -->
+            <div class="submenu">
+                <a th:href="@{/courses/course1.html}">출혈</a>
+                <a th:href="@{/courses/course2.html}">기도막힘</a>
+                <a th:href="@{/courses/course3.html}">심정지</a>
+                <a th:href="@{/courses/course4.html}">화상</a>
+            </div>
+
+            <!-- 교육자료 -->
+            <div class="sidebar-item">
+                <a th:href="@{/courses/data.html}">
+                    교육자료
+                </a>
+                <i class="fa-solid fa-folder-open"></i>
+            </div>
+
+            <div class="submenu">
+                <a th:href="@{/courses/data1.html}">출혈</a>
+                <a th:href="@{/courses/data2.html}">기도막힘</a>
+                <a th:href="@{/courses/data3.html}">심정지</a>
+                <a th:href="@{/courses/data4.html}">화상</a>
+            </div>
+
+        </nav>
+
+    </aside>
+</th:block>
+</body>
+</html>

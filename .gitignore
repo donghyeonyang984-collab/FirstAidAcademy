@@ -1,0 +1,34 @@
+# Build directories
+/target/
+/build/
+/out/
+
+# IDE settings
+.idea/
+*.iml
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files (keep secrets safe)
+.env
+application-local.properties
+application-prod.properties
+
+# Video / media files
+/src/main/resources/static/videos/
+*.mp4
+*.avi
+*.mov
+
+# Compiled files
+*.class
+
+# Temporary
+*.tmp
+*.bak

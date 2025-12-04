@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <h1>FAQ</h1>
+
+    <div class="faq-item">
+        <div class="question">
+            <span class="q-label">Q.</span>
+            <span class="q-text">로그인이 안 돼요.</span>
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="answer">
+           A. 아이디와 비밀번호를 정확히 입력했는지 확인해 주세요.<br>
+            비밀번호를 잊으셨다면 로그인 페이지의 [비밀번호 찾기]를 통해 재설정하실 수 있습니다.<br>
+            계속 로그인이 안 될 경우 고객센터(1234-5678)로 연락 주시기 바랍니다.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="question">
+            <span class="q-label">Q.</span>
+            <span class="q-text">강의 영상이 재생되지 않아요</span>
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="answer">
+            A. 다음 사항을 확인해 주세요.<br>
+
+인터넷 연결 상태 확인<br>
+브라우저 최신 버전 업데이트 (Chrome, Edge, Safari 권장)<br>
+브라우저 캐시 및 쿠키 삭제 후 재접속<br>
+팝업 차단 해제<br>
+다른 브라우저나 기기로 접속 시도
+        </div>
+    </div>
+
+     <div class="faq-item">
+        <div class="question">
+            <span class="q-label">Q.</span>
+            <span class="q-text">응급처치 교육은 누구나 신청할 수 있나요?</span>
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="answer">
+            네, 응급처치 교육은 일반인도 누구나 신청할 수 있습니다.
+            다만 일부 전문 과정은 사전 교육 이수가 필요할 수 있습니다.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="question">
+            <span class="q-label">Q.</span>
+            <span class="q-text">수료증은 어디서 발급받을 수 있나요?</span>
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="answer">
+            나의 강의실 → 수료 과정 메뉴에서 수료증을 직접 다운로드할 수 있습니다.
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

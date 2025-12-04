@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <div class="join-container">
+        <h1>회원가입</h1>
+
+        <!-- 회원정보 입력 폼 -->
+        <form id="joinForm" th:action="@{/join/info}" method="post" th:object="${joinForm}">
+            <!-- 아이디 -->
+            <div class="field">
+                <label for="userid">아이디 <span class="required">*</span></label>
+                <div class="field-inline">
+                    <input type="text"
+                           id="userid"
+                           th:field="*{userid}"
+                           placeholder="영문, 숫자 포함 4자리 이상"
+                           required />
+                    <!-- ✅ 중복확인 버튼 -->
+                    <button type="button" id="checkDuplicateBtn" class="common-btn1">중복확인</button>
+                </div>
+                <!-- ✅ 결과 메시지 -->
+                <p class="hint" id="idCheckMsg">아이디 조건 확인</p>
+            </div>
+
+            <!-- 비밀번호 -->
+            <div class="field">
+                <label for="password">비밀번호<span class="required">*</span></label>
+                <input type="password"
+                       id="password"
+                       th:field="*{password}"
+                       placeholder="영문, 숫자, 특수문자 포함 8자리 이상"
+                       required />
+                <p class="hint">비밀번호 조건 확인</p>
+            </div>
+
+            <!-- 비밀번호 확인 (서버 바인딩 X, 프론트 체크용) -->
+            <div class="field">
+                <label for="passwordCheck">비밀번호 확인<span class="required">*</span></label>
+                <input type="password"
+                       id="passwordCheck"
+                       placeholder="비밀번호를 다시 입력해주세요"
+                       required />
+                <p class="hint">비밀번호 확인</p>
+            </div>
+
+            <!-- 이름 -->
+            <div class="field">
+                <label for="name">이름<span class="required">*</span></label>
+                <input type="text"
+                       id="name"
+                       th:field="*{name}"
+                       placeholder="홍길동"
+                       required />
+                <p class="hint">이름을 입력해주세요.</p>
+            </div>
+
+            <!-- 성별 -->
+            <div class="field">
+                <label>성별<span class="required">*</span></label>
+                <div class="field-inline">
+                    <label>
+                        <input type="radio"
+                               th:field="*{gender}"
+                               value="남자"
+                               required />
+                        남자
+                    </label>
+                    <label>
+                        <input type="radio"
+                               th:field="*{gender}"
+                               value="여자"
+                               required />
+                        여자
+                    </label>
+                </div>
+                <p class="hint">성별을 선택해주세요.</p>
+            </div>
+
+            <!-- 생년월일 -->
+            <div class="field">
+                <label for="birth">생년월일<span class="required">*</span></label>
+                <input type="text"
+                       id="birth"
+                       th:field="*{birth}"
+                       placeholder="20051107 (숫자 8자리)"
+                       maxlength="8"
+                       required />
+                <p class="hint">생년월일을 8자리 숫자로 입력해주세요.</p>
+            </div>
+
+            <!-- 전화번호 -->
+            <div class="field">
+                <label for="phone">전화번호<span class="required">*</span></label>
+                <input type="text"
+                       id="phone"
+                       th:field="*{phone}"
+                       placeholder="010-1234-5678"
+                       required />
+                <p class="hint">전화번호 조건 확인</p>
+            </div>
+
+            <!-- 이메일 -->
+            <div class="field">
+                <label for="email">e-mail<span class="required">*</span></label>
+                <input type="email"
+                       id="email"
+                       th:field="*{email}"
+                       placeholder="example@naver.com"
+                       required />
+                <p class="hint">이메일 조건 확인</p>
+            </div>
+
+            <!-- 주소 -->
+            <div class="field">
+                <label for="address">주소</label>
+                <input type="text"
+                       id="address"
+                       th:field="*{address}"
+                       placeholder="대전 동구 은행동" />
+            </div>
+
+            <!-- 서버 에러 메시지 -->
+            <div th:if="${error}" class="error-msg" th:text="${error}"></div>
+
+            <!-- 버튼 -->
+            <div class="signup-buttons">
+                <button type="submit" class="next">다음</button>
+                <button type="button" class="cancel">취소</button>
+            </div>
+        </form>
+    </div>
+
+</th:block>
+
+</body>
+</html>

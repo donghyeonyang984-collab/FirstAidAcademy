@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <section class="question-detail" th:with="inq=${detail.inquiry}, ans=${detail.answer}">
+
+        <div class="news-header">
+            <div class="title-badge">
+                <h2 class="question-title"
+                    th:text="${inq.title}">문의 사항</h2>
+                <span class="question-type"
+                      th:text="${inq.category}">강의 관련</span>
+            </div>
+            <a th:href="@{/myPage/questions}">
+                <button class="btn-list" type="button">목록</button>
+            </a>
+        </div>
+
+        <div class="detail-info">
+      <span>답변 상태 :
+        <span class="status"
+              th:classappend="${inq.status == '답변완료'} ? ' done' : ' pending'"
+              th:text="${inq.status == '답변완료' ? '답변완료' : '답변대기'}">
+            답변 완료
+        </span>
+      </span>
+            |
+            <span>작성일 :
+                <span th:text="${#temporals.format(inq.createdAt,'yyyy-MM-dd')}">2025-11-10</span>
+            </span>
+        </div>
+
+        <!-- ✅ 첨부파일 박스 (이미지 카드 형태) -->
+        <div class="attach-wrap">
+            <!-- 첨부가 없을 때 -->
+            <div class="attach-empty" th:if="${#lists.isEmpty(detail.attachments)}">
+                첨부 파일 없음
+            </div>
+
+            <!-- 첨부가 있을 때 -->
+            <ul class="attach-list" th:if="${!#lists.isEmpty(detail.attachments)}">
+                <li class="attach-item" th:each="file : ${detail.attachments}">
+                    <div class="attach-left">
+                        <!-- 파일 아이콘 -->
+                        <i class="fa-regular fa-file-lines attach-icon"></i>
+
+                        <!-- 파일 이름 -->
+                        <span class="attach-name"
+                              th:text="${#strings.replace(file.filePath, '/uploads/inquiry/', '')}">
+                            파일명.hwp
+                        </span>
+                    </div>
+
+                    <div class="attach-right">
+                        <!-- 다운로드 버튼 느낌 -->
+                        <a class="attach-download"
+                           th:href="${file.filePath}"
+                           download>
+                            다운로드 &gt;
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="detail-content">
+            <p th:utext="${#strings.replace(inq.content,'\n','<br/>')}">
+                내용이 들어가는 영역입니다.
+            </p>
+        </div>
+
+        <!-- 답변 영역 -->
+        <div class="answer-header" th:if="${ans != null}">
+            <span class="answer-writer">
+                작성자 : <span th:text="${ans.adminName}">관리자</span>
+            </span>
+        </div>
+
+        <div class="answer-content" th:if="${ans != null}">
+            <p th:utext="${#strings.replace(ans.answerContent,'\n','<br/>')}">
+                안녕하세요. 문의 주신 내용에 대한 답변입니다.
+            </p>
+        </div>
+
+        <div class="answer-content" th:if="${ans == null}">
+            <p>아직 등록된 답변이 없습니다. 조금만 기다려 주세요.</p>
+        </div>
+
+        <!-- 이전글 / 다음글 -->
+        <div class="detail-footer">
+            <a class="btn-nav"
+               th:if="${detail.prevId != null}"
+               th:href="@{/myPage/questions/{id}(id=${detail.prevId})}">이전글</a>
+            <button class="btn-nav" type="button"
+                    th:if="${detail.prevId == null}" disabled>이전글</button>
+
+            <a class="btn-nav"
+               th:if="${detail.nextId != null}"
+               th:href="@{/myPage/questions/{id}(id=${detail.nextId})}">다음글</a>
+            <button class="btn-nav" type="button"
+                    th:if="${detail.nextId == null}" disabled>다음글</button>
+        </div>
+    </section>
+
+</th:block>
+
+</body>
+</html>

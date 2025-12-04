@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>First Aid Academy - Intro</title>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+            rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- ✅ 스프링 정적 리소스 경로 -->
+    <link rel="stylesheet" th:href="@{/css/intro.css}">
+</head>
+
+<body>
+<th:block th:fragment="content">
+<div class="fixed-background-image"></div>
+
+<!-- ★ 로고 2개 (기본 + 화이트) -->
+<div class="fixed-logo">
+    <!-- ✅ home.html → /home (스프링 매핑) / 이미지도 th:src로 변경 -->
+    <a th:href="@{/home}">
+        <img th:src="@{/images/logo.png}" class="logo-default" alt="로고">
+    </a>
+    <a th:href="@{/home}">
+        <img th:src="@{/images/logo1.png}" class="logo-white" alt="화이트 로고">
+    </a>
+</div>
+
+<div class="dot-nav">
+    <div class="dot active" data-index="0"></div>
+    <div class="dot" data-index="1"></div>
+    <div class="dot" data-index="2"></div>
+    <div class="dot" data-index="3"></div>
+</div>
+
+<div class="page-indicator">
+    <span class="current-page">01</span>
+    <div class="separator"></div>
+    <span class="total-pages">04</span>
+</div>
+
+<!-- Slide1 -->
+<section class="slide-section active" id="slide1">
+    <div class="left-content-area">
+        <div class="content-box">
+            <h1>Master the Golden Time<br>Simply and Surely</h1>
+            <p>위급한 순간, 당신의 손끝에서 기적이 시작됩니다.
+                <br>실전 중심의 교육부터 이수증 발급까지,
+                FirstAid Academy에서 모든 과정을 가장 쉽고 확실하게 완성하세요.</p>
+
+        </div>
+
+        <nav class="left-menu">
+            <a href="#">ABOUT US</a>
+            <a href="#">COURSES</a>
+            <a href="#">Learn & Play</a>
+            <a href="#">Certification</a>
+        </nav>
+    </div>
+</section>
+
+<!-- Slide2 -->
+<section class="slide-section" id="slide2">
+    <div class="full-screen-overlay"></div>
+    <div class="left-content-area">
+        <div class="content-box">
+            <h1>Our Main Features</h1>
+            <p>체계적인 온라인 교육부터 AI 기반의 맞춤형 시험까지, First Aid Academy의 핵심 기능들을 만나보세요.</p>
+        </div>
+
+        <div class="card-grid-container">
+            <div class="feature-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-laptop-medical"></i></div>
+                <h3>온라인 이론 교육</h3>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-vr-cardboard"></i></div>
+                <h3>응급 시뮬레이션</h3>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-certificate"></i></div>
+                <h3>이수증 자동 발급</h3>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-robot"></i></div>
+                <h3>AI 기반 시험 문제 제출</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Slide3 -->
+<section class="slide-section" id="slide3">
+    <div class="full-screen-overlay"></div>
+    <div class="left-content-area">
+        <div class="content-box slide_content">
+            <h1>Path to Preparedness</h1>
+            <p>준비된 대응력을 위한 여정</p>
+
+            <div class="steps-container">
+
+                <!-- 4단계 반복 -->
+                <div class="step-unit">
+                    <div class="step-img">
+                        <div class="icon-bg">
+                            <i class="fa fa-phone fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="dot"></div>
+                    <div class="desc-item">회원가입</div>
+                </div>
+
+                <div class="step-unit">
+                    <div class="step-img">
+                        <div class="icon-bg">
+                            <i class="fa fa-stethoscope fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="dot"></div>
+                    <div class="desc-item">교육 수강</div>
+                </div>
+
+                <div class="step-unit">
+                    <div class="step-img">
+                        <div class="icon-bg">
+                            <i class="fas fa-first-aid fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="dot"></div>
+                    <div class="desc-item">시험 응시</div>
+                </div>
+
+                <div class="step-unit">
+                    <div class="step-img">
+                        <div class="icon-bg">
+                            <i class="fas fa-ambulance fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="dot"></div>
+                    <div class="desc-item">이수증 발급</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Slide4 -->
+<section class="slide-section" id="slide4">
+    <div class="slide4-overlay"></div>
+
+    <div class="left-content-area">
+        <div class="content-box">
+            <h1>
+                Unpredictable Moments,<br>
+                Your Prepared Response.
+            </h1>
+
+            <p>예고 없이 찾아오는 위급 상황, 그 순간을 지배하는 것은 오직 철저한 준비뿐입니다.</p>
+            <p>First Aid Academy는 실전과 같은 시뮬레이션과 체계적인 데이터 분석을 통해<br>
+                단순한 지식 습득을 넘어, 생명을 살리는 직관적인 대처 능력을 완성합니다.</p>
+            <p>당신의 작은 용기가 누군가의 기적이 되도록, 우리는 가장 완벽한 교육을 약속합니다.</p>
+        </div>
+
+        <nav class="left-menu">
+            <a href="#">ABOUT US</a>
+            <a href="#">COURSES</a>
+            <a href="#">Learn & Play</a>
+            <a href="#">Certification</a>
+        </nav>
+    </div>
+</section>
+
+<script>
+    const slides = document.querySelectorAll(".slide-section");
+    const dots = document.querySelectorAll(".dot");
+    const currentPageSpan = document.querySelector(".current-page");
+
+    let current = 0;
+    let isScrolling = false;
+    const animationDuration = 1200;
+
+    /* ★ 로고 업데이트 */
+    function updateLogo() {
+
+        const needWhite = (current !== 0);
+
+        document.querySelector(".logo-default").style.display = needWhite ? "none" : "block";
+        document.querySelector(".logo-white").style.display = needWhite ? "block" : "none";
+    }
+
+    function showSlide(index) {
+        if (index < 0 || index >= slides.length || index === current) return;
+
+        slides[current].classList.remove("active");
+        dots[current].classList.remove("active");
+
+        current = index;
+
+        slides[current].classList.add("active");
+        dots[current].classList.add("active");
+
+        currentPageSpan.textContent = String(current + 1).padStart(2, '0');
+
+        if (current === 2) {
+            startStepAnimation();
+        }
+
+        updateLogo();  // ★ 로고 변경 실행
+    }
+
+    window.addEventListener("wheel", e => {
+        if (isScrolling) return;
+        isScrolling = true;
+
+        if (e.deltaY > 0) showSlide(current + 1);
+        else showSlide(current - 1);
+
+        setTimeout(() => isScrolling = false, animationDuration);
+    }, { passive: false });
+
+    dots.forEach(dot => dot.addEventListener("click", () => {
+        showSlide(parseInt(dot.dataset.index));
+    }));
+
+    window.addEventListener('keydown', e => {
+        if (isScrolling) return;
+        if (e.key === "ArrowDown") showSlide(current + 1);
+        if (e.key === "ArrowUp") showSlide(current - 1);
+    });
+
+    /* ----------------------------------------------------------
+     Slide3 단계(step-unit) 강조 애니메이션 (2.5배 빠르게)
+    ---------------------------------------------------------- */
+    let stepIndex = -1;
+    let stepInterval = null;
+    const stepUnits = document.querySelectorAll("#slide3 .step-unit");
+
+    function startStepAnimation() {
+        // 이전 인터벌 제거
+        if (stepInterval) clearInterval(stepInterval);
+        stepIndex = -1;
+
+        // 모든 단계 초기화
+        stepUnits.forEach(unit => {
+            unit.querySelector(".step-img").classList.remove("active");
+            unit.querySelector(".dot").classList.remove("active");
+            unit.querySelector(".desc-item").classList.remove("active");
+        });
+
+        // 0.8초 간격으로 다음 단계 강조
+        stepInterval = setInterval(() => {
+            stepIndex++;
+
+            if (stepIndex >= stepUnits.length) {
+                // 마지막 단계까지 켠 후 인터벌 종료
+                clearInterval(stepInterval);
+                stepInterval = null;
+                return;
+            }
+
+            // 현재 단계만 켜기 (이전 단계는 그대로 유지)
+            const unit = stepUnits[stepIndex];
+            unit.querySelector(".step-img").classList.add("active");
+            unit.querySelector(".dot").classList.add("active");
+            unit.querySelector(".desc-item").classList.add("active");
+
+        }, 800); // 2.5배 빠른 속도
+    }
+
+    function stopStepAnimation() {
+        // 슬라이드 벗어나면 멈추고 단계 초기화
+        if (stepInterval) {
+            clearInterval(stepInterval);
+            stepInterval = null;
+        }
+        stepUnits.forEach(unit => {
+            unit.querySelector(".step-img").classList.remove("active");
+            unit.querySelector(".dot").classList.remove("active");
+            unit.querySelector(".desc-item").classList.remove("active");
+        });
+    }
+</script>
+
+</th:block>
+</body>
+</html>

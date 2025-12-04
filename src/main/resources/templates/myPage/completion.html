@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <h1>수료</h1>
+
+    <!-- 🔥 필터 + 검색 폼 -->
+    <form class="filter-search"
+          th:action="@{/myPage/completion}"
+          method="get">
+
+        <!-- 카테고리 필터 -->
+        <select class="filter-select" name="mid">
+            <option value="" th:selected="${selectedMid == ''}">전체</option>
+            <option value="출혈" th:selected="${selectedMid == '출혈'}">출혈</option>
+            <option value="기도막힘" th:selected="${selectedMid == '기도막힘'}">기도막힘</option>
+            <option value="심정지" th:selected="${selectedMid == '심정지'}">심정지</option>
+            <option value="화상" th:selected="${selectedMid == '화상'}">화상</option>
+        </select>
+
+        <!-- 검색 박스 -->
+        <div class="search-box">
+            <input type="text"
+                   name="keyword"
+                   placeholder="강의 검색"
+                   th:value="${keyword}" />
+
+            <!-- 검색 버튼 -->
+            <button type="submit" class="course-search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+    </form>
+
+    <!-- ⭐ 수료 리스트 -->
+    <section class="completion-section">
+
+        <div class="completion-card"
+             th:each="e : ${enrollments}">
+
+            <div class="completion-item">
+
+                <!-- 썸네일 -->
+                <div class="thumbnail-box">
+                    <img alt="thumbnail"
+                         th:src="@{|/uploads/${e.imagePath}|}" />
+                </div>
+
+                <div class="content-box">
+
+                    <!-- 카테고리 태그 -->
+                    <div class="status-tags">
+                        <div class="category-tags">
+                            <span th:text="${e.midCategory}"></span>
+                            <span th:text="${e.topCategory}"></span>
+                        </div>
+                    </div>
+
+                    <div class="course-title">
+                        <span th:text="${e.title}"></span>
+                        <span class="completion-tag">수료</span>
+                    </div>
+
+                    <div class="course-period">
+                        <span th:text="'수강일: ' + ${#temporals.format(e.enrolledAt, 'yyyy-MM-dd')}"></span>
+                    </div>
+                </div>
+
+                <div class="button-box">
+                    <!-- 수료증 보기 (새 창) -->
+                    <a target="_blank"
+                       th:href="@{/certificate/view(enrollmentId=${e.enrollmentId})}">
+                        <button class="btn-cert1">수료증 보기</button>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 비어있을 때 -->
+        <div class="empty-result"
+             th:if="${#lists.isEmpty(enrollments)}"
+             style="margin-top: 24px; color:#6b7280; font-size:14px;">
+            수료한 강의가 없습니다.
+        </div>
+
+    </section>
+
+    <!-- 페이징 -->
+    <div class="pagination" th:if="${!#lists.isEmpty(enrollments)}">
+        <button class="page-btn prev">&lt;</button>
+        <ul class="page-numbers"></ul>
+        <button class="page-btn next">&gt;</button>
+    </div>
+
+</th:block>
+ dd
+</body>
+</html>

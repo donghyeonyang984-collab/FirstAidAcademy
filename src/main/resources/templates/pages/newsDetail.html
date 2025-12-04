@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보도자료 상세</title>
+
+    <!-- 기존 CSS 그대로 유지 (layout에서는 fragment만 사용) -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div data-include="../fragments/header.html"></div>
+
+<div class="container">
+    <div data-include="../fragments/sidebarN.html"></div>
+
+    <main class="main">
+        <th:block th:fragment="content">
+            <section class="news-detail">
+                <div class="news-header">
+                    <!-- 제목: DB 값 사용 -->
+                    <h2 class="news-title"
+                        th:text="${press.title}">
+                        보도자료 제목
+                    </h2>
+
+                    <!-- 목록 버튼: /news 로 이동 -->
+                    <a th:href="@{/news}">
+                        <button class="btn-list">목록</button>
+                    </a>
+                </div>
+
+                <div class="detail-info">
+                <span>
+                    작성자 :
+                    <span th:text="${press.writerName} ?: '관리자'">
+                        관리자
+                    </span>
+                </span>
+                    |
+                    <span>
+                    작성일 :
+                    <span th:text="${#temporals.format(press.createdAt, 'yyyy-MM-dd')}">
+                        2025-11-10
+                    </span>
+                </span>
+                </div>
+                <div class="detail-content">
+                    <!-- 내용: HTML 포함해서 저장했다면 utext로 렌더링 -->
+                    <p th:utext="${press.contentHtml}">
+                        보도자료 내용이 들어가는 영역입니다.
+                    </p>
+                </div>
+
+                <!-- 링크가 있을 때만 표시 -->
+                <div class="detail-link"
+                     th:if="${press.linkUrl != null and !#strings.isEmpty(press.linkUrl)}">
+                    <div class="file-info">
+                        <a class="file-name"
+                           th:href="${press.linkUrl}"
+                           th:text="${press.linkUrl}"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            보도자료 링크 입니다
+                        </a>
+                    </div>
+                </div>
+
+                <div class="detail-footer">
+                    <!-- 이전글 -->
+                    <button class="btn-nav"
+                            th:if="${prevPress != null}"
+                            th:onclick="|location.href='@{/news/{id}(id=${prevPress.pressReleaseId})}'|">
+                        이전글
+                    </button>
+                    <button class="btn-nav"
+                            th:if="${prevPress == null}"
+                            disabled>
+                        이전글
+                    </button>
+
+                    <!-- 다음글 -->
+                    <button class="btn-nav"
+                            th:if="${nextPress != null}"
+                            th:onclick="|location.href='@{/news/{id}(id=${nextPress.pressReleaseId})}'|">
+                        다음글
+                    </button>
+                    <button class="btn-nav"
+                            th:if="${nextPress == null}"
+                            disabled>
+                        다음글
+                    </button>
+                </div>
+            </section>
+        </th:block>
+    </main>
+</div>
+
+<div data-include="../fragments/footer.html"></div>
+
+<!-- 기존 JS 그대로 유지 -->
+<script src="../fragments/common.js"></script>
+</body>
+</html>

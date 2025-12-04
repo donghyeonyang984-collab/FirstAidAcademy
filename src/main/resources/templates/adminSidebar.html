@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- 사이드바(사이드바 css, 공통 js) -->
+<div id="admin_sidebar" th:fragment="sidebar">
+    <a href="/adminHome" class="admin_home">DashBoard</a>
+    <div class="admin_sidebar_menu">
+        <ul>
+            <li class="aSidebar_sub">
+                <button type="button" class="sidebar_toggle">👤 회원</button>
+                <ul class="aSidebar_sub_menu">
+                    <li><a href="/adminUser/adminUser">회원관리</a></li>
+                </ul>
+            </li>
+
+            <li class="aSidebar_sub">
+                <button type="button" class="sidebar_toggle">📚 교육</button>
+                <ul class="aSidebar_sub_menu">
+                    <li><a href="/adminCourse/adminCourseList">강의목록</a></li>
+                    <li><a href="/adminCourse/adminCourseAdd">신규강의등록</a></li>
+                    <li><a href="/adminEdu/adminEdu">교육자료</a></li>
+                    <li><a href="/adminEdu/adminEduAdd">교육자료등록</a></li>
+                </ul>
+            </li>
+
+            <li class="aSidebar_sub">
+                <button type="button" class="sidebar_toggle">💬 소식센터</button>
+                <ul class="aSidebar_sub_menu">
+                    <li><a href="/adminNotice/adminNotice">공지사항</a></li>
+                    <li><a href="/adminNotice/adminNoticeAdd">공지사항등록</a></li>
+                    <li><a href="/adminInquiry/adminInquiry">문의사항</a></li>
+                    <li><a href="/adminPress/adminPressRelease">보도자료</a></li>
+                    <li><a href="/adminPress/adminPressAdd">보도자료등록</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

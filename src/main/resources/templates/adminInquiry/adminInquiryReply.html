@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 문의사항 답변</title>
+
+    <!-- 관리자 공통 CSS -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+
+    <!-- 문의사항 답변 전용 CSS -->
+    <!-- ⚠️ 실제 파일명이 adminInquiryReply.css 라면 경로를 이렇게 맞춰주세요 -->
+    <link rel="stylesheet" href="/admincss/adminInquiryReply.css">
+
+    <!-- 폰트어썸 (아이콘) -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- 헤더 -->
+<div th:replace="~{adminHeader :: header}"></div>
+
+<div class="admin_wrapper">
+    <!-- 사이드바 -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+
+    <!-- 메인 -->
+    <main id="container" th:with="inq=${detail.inquiry}, ans=${detail.answer}">
+        <!-- 맨 위 타이틀 -->
+        <h3 class="main_title">문의사항답변</h3>
+
+        <section id="admin_inq_reply" class="admin_inq_wrap">
+
+            <!-- 문의 정보 -->
+            <div class="admin_inq_info_box">
+                <div class="admin_inq_info_row">
+                    <label class="admin_inq_label">회원명(아이디)</label>
+                    <p id="inqUser" class="admin_inq_info_text">
+                        <span th:text="${detail.userName}">신짱구</span>
+                        (<span th:text="${detail.username}">shinchanggu</span>)
+                    </p>
+                </div>
+
+                <div class="admin_inq_info_row">
+                    <label class="admin_inq_label">유형</label>
+                    <p id="inqType" class="admin_inq_info_text"
+                       th:text="${inq.category}">시스템 문제</p>
+                </div>
+
+                <div class="admin_inq_info_row">
+                    <label class="admin_inq_label">제목</label>
+                    <p id="inqTitle" class="admin_inq_info_text"
+                       th:text="${inq.title}">로그인이 안 돼요</p>
+                </div>
+
+                <div class="admin_inq_info_row">
+                    <label class="admin_inq_label">첨부파일</label>
+                    <div id="inqFile" class="admin_inq_info_file">
+                        <!-- 첨부 파일 없을 때 -->
+                        <span th:if="${#lists.isEmpty(detail.attachments)}">
+                            첨부된 파일이 없습니다.
+                        </span>
+
+                        <!-- 첨부 파일 있을 때 -->
+                        <ul class="admin_inq_file_list"
+                            th:if="${!#lists.isEmpty(detail.attachments)}">
+                            <li th:each="file : ${detail.attachments}">
+                                <a class="file_link"
+                                   th:href="${file.filePath}"
+                                   th:download="${#strings.replace(file.filePath,'/uploads/inquiry/','')}">
+                                    <i class="fa-regular fa-file-lines file_icon"></i>
+                                    <span th:text="${#strings.replace(file.filePath,'/uploads/inquiry/','')}">
+                                        첨부파일.hwp
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="admin_inq_info_row">
+                    <label class="admin_inq_label">내용</label>
+                    <div id="inqContent"
+                         class="admin_inq_info_content"
+                         th:utext="${#strings.replace(inq.content,'\n','<br/>')}">
+                        비밀번호를 맞게 입력했는데 계속 오류가 납니다. 확인 부탁드립니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 기존 답변(있을 때만 노출) -->
+            <div id="admin_inq_reply_list"
+                 class="admin_inq_reply_list"
+                 th:if="${ans != null}">
+                <div class="admin_inq_reply_item">
+                    <div class="reply_header">
+                        <div class="reply_left">
+                            <strong class="reply_author">관리자</strong>
+                        </div>
+                        <div class="reply_right">
+                            <!-- ✅ 날짜 필드(createdAt)가 없어서 에러 나던 부분: 일단 '답변 완료' 텍스트만 표시 -->
+                            <span class="reply_date">답변 완료</span>
+                        </div>
+                    </div>
+                    <div class="reply_content"
+                         th:utext="${#strings.replace(ans.answerContent,'\n','<br/>')}">
+                        기존 답변 내용입니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 답변 작성 폼 -->
+            <form id="admin_inq_reply_form"
+                  class="admin_inq_form"
+                  th:action="@{/AdminInquiry/AdminInquiryReply/{id}(id=${inq.inquiryId})}"
+                  method="post">
+
+                <div class="admin_inq_form_group">
+                    <label for="replyContent" class="admin_inq_label">답변 내용</label>
+                    <textarea id="replyContent"
+                              name="replyContent"
+                              class="admin_inq_textarea"
+                              placeholder="답변 내용을 입력하세요."
+                              th:text="${ans != null ? ans.answerContent : ''}"></textarea>
+                </div>
+
+                <div class="admin_inq_btn_group">
+                    <button type="submit"
+                            id="replySubmitBtn"
+                            class="admin_inq_submit_btn">
+                        등록
+                    </button>
+
+                    <a th:href="@{/AdminInquiry}"
+                       id="replyCancelBtn"
+                       class="admin_inq_cancel_btn">
+                        취소
+                    </a>
+                </div>
+            </form>
+
+        </section>
+    </main>
+</div>
+
+<!-- 푸터 -->
+<div th:replace="~{adminFooter :: footer}"></div>
+
+<!-- 공통 JS -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 문의사항 답변 전용 JS -->
+<script src="/adminjs/adminInquiryReply.js"></script>
+
+</body>
+</html>

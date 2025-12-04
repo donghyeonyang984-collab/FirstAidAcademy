@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>교육 이수증</title>
+    <link href="/certificate.css" rel="stylesheet">
+</head>
+<body>
+<div class="certificate_wrap">
+
+    <div class="certificate_frame">
+        <div class="certificate_content">
+
+            <!-- 상단 문서번호 -->
+            <div class="cert_number">
+                제 <span th:text="${cert.certificateNumber}"></span> 호
+            </div>
+
+            <!-- 타이틀 -->
+            <h1 class="cert_title">교육이수증명서</h1>
+
+            <!-- 수강자 정보 -->
+            <div class="cert_info">
+                <p><strong>소속:</strong> First Aid 아카데미</p>
+                <p><strong>성명:</strong> <span th:text="${cert.userName}"></span></p>
+            </div>
+
+            <!-- 과정 정보 -->
+            <div class="cert_course">
+                <p><strong>과정명:</strong> <span th:text="${cert.courseTitle}"></span></p>
+
+                <!-- 학습 기간 -->
+                <p>
+                    <strong>기간:</strong>
+                    <span th:text="${cert.startDate}"></span>
+                    ~
+                    <span th:text="${cert.endDate}"></span>
+                </p>
+
+                <!-- 이수 과목 목록 -->
+                <p><strong>이수과목:</strong></p>
+                <ul>
+                    <li th:each="lec : ${cert.lectureList}"
+                        th:text="${lec}"></li>
+                </ul>
+            </div>
+
+            <!-- 인증 문구 -->
+            <p class="cert_statement">
+                위 사람은 본 기관이 실시한 상기 교육 과정을 성실히 이수하였으므로<br>
+                이 증서를 수여함.
+            </p>
+
+            <!-- 발급일 -->
+            <p class="cert_date">
+                <span th:text="${cert.issuedDate}"></span>
+            </p>
+
+            <!-- 기관명 -->
+            <div class="cert_footer">
+                <p class="cert_org">First Aid 아카데미</p>
+                <div class="cert_stamp"></div>
+            </div>
+
+        </div>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨 인쇄하기</button>
+</div>
+</body>
+<script src="/certificate.js"></script>
+</html>

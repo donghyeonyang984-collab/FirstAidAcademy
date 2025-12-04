@@ -1,0 +1,58 @@
+/* 카테고리 선택창 */
+.inquiry_srch_status {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #d0d7e2;
+  border-radius: 5px;
+  padding: 8px 25px;
+  background-color: #fefefe;
+  font-size: 15px;
+  margin-right: -300px;
+}
+
+.inquiry_srch_status label {
+  color: #333;
+  cursor: pointer;
+  /* 글자 가운데로 정렬 */
+  padding-right: 12px;
+}
+
+.inquiry_srch_status input {
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: -2px;
+  accent-color: #4a7dfc;
+}
+
+/* 문의사항 제목 js에 있음 */
+.inquiry_title_link {
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+.inquiry_title_link:hover {
+  text-decoration: underline;
+  color: #2b6cb0;
+}
+
+/* 답변 버튼 */
+.reply_btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #5a8fb8;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reply_btn:hover {
+  background-color: #4a7da3;
+}
+
+.reply_btn.disabled {
+  background-color: #b0b0b0;
+  cursor: default;
+}

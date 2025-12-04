@@ -1,0 +1,272 @@
+
+/* ===== 로그인 ===== */
+.login-section {
+  background-color: #f9f9f9;
+  padding: 120px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+    background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px; 
+  border-radius: 16px;
+  border: solid 1px #3b6e91 ;
+  padding: 80px 80px;
+  
+}
+
+.intro-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.intro-img {
+  width: 330px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.intro-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #274e66;
+  line-height: 1.6;
+}
+
+
+.login-box {
+   
+  width: 320px;
+  background: #fff;
+  padding: 40px 30px;
+  
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #3b6e91;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border: 1px solid #b9c6d3;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.login-box input:focus {
+  border-color: #3b6e91;
+  outline: none;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #3b6e91;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #274e66;
+}
+
+.links {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.9rem;
+}
+
+.links a {
+  color: #3b6e91;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+
+/* ============ 찾기 페이지 공용 ============ */
+.common-section {
+  background-color: #ffffff;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-box {
+  width: 600px;
+  justify-content: center;
+  align-items: center;
+  gap: 60px; 
+  border-radius: 16px;
+  border: solid 1px #3b6e91 ;
+  padding: 60px 60px;
+
+
+}
+
+.text-box{
+    color:#274e66;
+    justify-self:center;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.text-box h2
+{
+    color:#274e66;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    
+}
+
+.form
+{
+   margin-top: 30px;
+  
+}
+
+.form-row {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 14px; 
+}
+
+
+.form-row p {
+    flex-shrink: 0; 
+    width: 110px; 
+    font-weight: 600;
+    color: #24323a;
+    margin-right: 10px; 
+    padding: 0; 
+}
+
+
+.form-row input {
+    flex-grow: 1; 
+    margin-bottom: 0; 
+}
+
+.form-box input {
+   width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border: 1px solid #b9c6d3;
+  border-radius: 8px;
+  font-size: 1rem;
+   
+}
+
+.form-box input:focus {
+  border-color: #3b6e91;
+  outline: none;
+}
+
+.common-btn1 {
+   
+padding: 12px 20px; 
+text-align: center;
+
+background: #3b6e91;
+color: #fff;
+border: none;
+border-radius: 8px;
+font-weight: 600;
+cursor: pointer;
+transition: 0.3s;
+display: inline-block;
+margin: 0;
+}
+
+.common-btn2 {
+   
+padding: 12px 20px; 
+text-align: center;
+background: #ddd;
+color: #333;
+border: none;
+border-radius: 8px;
+font-weight: 600;
+cursor: pointer;
+transition: 0.3s;
+display: inline-block;
+margin: 0;
+}
+
+.common-btn1:hover {
+  background-color: #274e66;
+}
+
+.common-btn2:hover {
+  background-color: #ccc;
+}
+.findBtn
+{
+    display: flex;
+    justify-content: center;
+     margin-top: 20px;
+}
+ .required
+   {
+     color: rgb(219, 72, 72);
+     display: inline;
+   }
+
+.btns{
+    
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    
+}
+.btns button{
+    
+    width: 130px !important;
+    
+}
+
+.error-message {
+color: #db4848;
+font-size: 0.9rem;
+font-weight: 500;
+margin: -10px 0 10px 120px; 
+padding: 0;
+line-height: 1.4;
+}
+
+.error-message span {
+color:  #db4848; 
+font-size: 1.1rem;
+margin-right: 5px;
+}
+
+
+.hidden {
+ display: none !important;
+}
+
+
+.form-row.error input {
+ border-color: #db4848 !important;
+}

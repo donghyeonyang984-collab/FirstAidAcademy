@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 등록</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 공지사항 등록 전용 -->
+    <link rel="stylesheet" href="/admincss/adminNoticeAdd.css">
+</head>
+<body>
+<!-- 헤더(헤더 css) -->
+    <div th:replace="~{adminHeader :: header}"></div>
+    <!-- 사이드바(사이드바 css, 공통 js) -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+    <main id="container">
+        <!-- 맨 위 타이틀 (공통 css) -->
+        <h3 class="main_title">공지사항등록</h3>
+        <!-- 등록 폼 (공통 CSS) -->
+        <div class="admin_add_cont">
+            <form id="admin_notice_add_form"
+                  class="admin_edit_form"
+                  method="post"
+                  th:action="@{/adminNotice/adminNoticeAdd}">
+
+                <!-- 공지 제목 -->
+                <div class="admin_form_group">
+                    <label for="noticeTitle" class="form_label_title">공지 제목</label>
+                    <!-- name만 추가 -->
+                    <input type="text"
+                           id="noticeTitle"
+                           name="title"
+                           placeholder="공지 제목을 입력하세요."
+                           required>
+                </div>
+
+                <!-- 공지 내용 -->
+                <div class="admin_form_group admin_textarea_group">
+                    <label for="noticeContent" class="form_label_title">공지 내용</label>
+                    <!-- name만 추가 -->
+                    <textarea id="noticeContent"
+                              name="contentHtml"
+                              class="admin_textarea"
+                              placeholder="공지 내용을 입력하세요."
+                              rows="5"
+                              required></textarea>
+                </div>
+
+                <!-- 버튼 (그대로) -->
+                <div class="admin_form_btns">
+                    <button type="submit"
+                            id="admin_notice_addBtn"
+                            class="admin_edit_btn">등록</button>
+
+                    <button type="button"
+                            id="admin_notice_cancelBtn"
+                            class="admin_cancel_btn"
+                            onclick="window.location.href='/adminNotice/adminNotice';">
+                        취소
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- 푸터(푸터 css) -->
+  <div th:replace="~{adminFooter :: footer}"></div>
+</body>
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 공지사항 등록 전용 js -->
+<!-- <script src="js/adminNoticeAdd.js"></script> -->
+</html>

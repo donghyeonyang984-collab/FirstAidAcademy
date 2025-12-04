@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보도자료 등록</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 보도자료 등록 전용 -->
+    <link rel="stylesheet" href="/admincss/adminPressAdd.css">
+</head>
+
+<body>
+   <!-- 헤더(헤더 css) -->
+    <div th:replace="~{adminHeader :: header}"></div>
+    <!-- 사이드바(사이드바 css, 공통 js) -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+    <main id="container">
+        <!-- 맨 위 타이틀 (공통 css) -->
+        <h3 class="main_title">보도자료등록</h3>
+        <!-- 등록 폼 (공통 CSS) -->
+        <div class="admin_add_cont">
+            <form id="admin_press_add_form"
+                  class="admin_add_form"
+                  th:action="@{/adminPress}"
+                  method="post">
+
+                <!-- 보도자료 제목 -->
+                <div class="admin_form_group">
+                    <label for="pressTitle" class="form_label_title">제목</label>
+                    <input type="text" id="pressTitle" name="pressTitle" placeholder="보도자료 제목을 입력하세요." required>
+                </div>
+
+                <!-- 보도자료 내용 -->
+                <div class="admin_form_group admin_textarea_group">
+                    <label for="pressDesc" class="form_label_title">내용</label>
+                    <textarea id="pressContent" name="pressContent" class="admin_textarea"
+                        placeholder="보도자료에 등록할 내용을 입력하세요." rows="5" required></textarea>
+                </div>
+
+                <!-- 보도자료 url 버전 -->
+                <div class="admin_form_group press_link_group">
+                    <label for="addPressLink" class="form_label_title">보도자료 링크(URL)</label>
+                    <input type="url" id="addPressLink" name="addPressLink" placeholder="https://example.com/news/1234"
+                        required>
+                    <p class="form_guide">※ 외부 기사나 보도자료에 첨부할 URL을 입력하세요.</p>
+                </div>
+
+                <!-- 보도자료 영상 버전 -->
+                <!-- <div class="admin_form_group press_video_group">
+                    <label for="addPressVideo" class="form_label_title">보도자료 영상</label>
+                    <div class="upload_box">
+                        <div class="upload_input">
+                            <input type="file" id="pressVideo" name="pressVideo" accept="video/*" required>
+                        </div>
+                    </div>
+                    <p class="form_guide">※ 보도자료에 포함할 영상 파일(mp4, mov 등)을 업로드하세요.</p>
+                </div> -->
+
+                <!-- 보도자료 등록, 취소 버튼 -->
+                <div class="admin_form_btns">
+                    <button type="submit" id="admin_press_submitBtn" class="admin_submit_btn">등록</button>
+                    <button type="button" id="admin_press_cancelBtn" class="admin_cancel_btn"
+                            onclick="history.back();">취소</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- 푸터(푸터 css) -->
+  <div th:replace="~{adminFooter :: footer}"></div>
+</body>
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 보도자료 등록 전용 js -->
+<!-- <script src="js/adminPressAdd.js"></script> -->
+
+</html>

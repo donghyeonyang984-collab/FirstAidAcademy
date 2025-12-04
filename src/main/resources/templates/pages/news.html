@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <h2>보도자료</h2>
+
+    <form class="search-box" th:action="@{/news}" method="get">
+        <input type="text"
+               name="q"
+               placeholder="제목 검색"
+               th:value="${keyword}">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>등록일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 데이터 없을 때 -->
+        <tr th:if="${totalCount == 0}">
+            <td colspan="4" class="no-data">등록된 보도자료가 없습니다.</td>
+        </tr>
+
+        <!-- 데이터 있을 때 -->
+        <tr th:each="press, stat : ${pressReleases}">
+            <!-- 번호: 전체에서 역순 번호 -->
+            <td th:text="${totalCount - ((page - 1) * size + stat.index)}">1</td>
+
+            <!-- 제목: 상세 /news/{id} -->
+            <td>
+                <a th:href="@{'/news/' + ${press.pressReleaseId}}"
+                   th:text="${press.title}">
+                    보도자료 제목
+                </a>
+            </td>
+
+            <!-- 작성자 -->
+            <td th:text="${press.writerName} ?: '관리자'">관리자</td>
+
+            <!-- 등록일 -->
+            <td th:text="${#temporals.format(press.createdAt, 'yyyy.MM.dd')}">
+                2025.11.01
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pagination" th:if="${totalPages > 0}">
+        <!-- 이전 -->
+        <a class="page-btn prev"
+           th:if="${page > 1}"
+           th:href="@{/news(page=${page - 1}, size=${size}, q=${keyword})}">
+            &lt;
+        </a>
+        <span class="page-btn prev disabled"
+              th:unless="${page > 1}">
+        &lt;
+    </span>
+        <!-- 현재 / 전체 -->
+        <span class="page-info"
+              th:text="${page} + ' / ' + ${totalPages}">
+    1 / 1
+</span>
+
+        <!-- 다음 -->
+        <a class="page-btn next"
+           th:if="${page < totalPages}"
+           th:href="@{/news(page=${page + 1}, size=${size}, q=${keyword})}">
+            &gt;
+        </a>
+        <span class="page-btn next disabled"
+              th:unless="${page < totalPages}">
+        &gt;
+    </span>
+    </div>
+
+</th:block>
+
+</body>
+</html>

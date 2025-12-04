@@ -1,0 +1,12 @@
+/* 제목, 첨부파일 링크 스타일 */
+.press_title_link, .press_file_link {
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+.press_title_link:hover,
+.press_file_link:hover {
+  text-decoration: underline;
+  color: #2b6cb0;
+}

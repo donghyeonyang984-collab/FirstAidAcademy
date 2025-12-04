@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신규 강의 등록</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 강의 등록 전용 css -->
+    <link rel="stylesheet" href="/admincss/adminCourseAdd.css">
+</head>
+
+<body>
+  <!-- 헤더(헤더 css) -->
+    <div th:replace="~{adminHeader :: header}"></div>
+    <!-- 사이드바(사이드바 css, 공통 js) -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+    <main id="container">
+        <!-- 맨 위 타이틀 (공통 css) -->
+        <h3 class="main_title">강의등록</h3>
+        <!-- 등록 폼 (공통 CSS) -->
+        <div class="admin_add_cont">
+            <form id="admin_course_add_form" class="admin_add_form" enctype="multipart/form-data">
+
+                <!-- 강의명 -->
+                <div class="admin_form_group">
+                    <label for="courseTitle" class="form_label_title">강의명</label>
+                    <input type="text" id="courseTitle" name="courseTitle" placeholder="강의명을 입력하세요." required>
+                </div>
+
+                <!-- 강의 분류 -->
+                <div class="admin_form_group admin_select_group">
+                    <label for="courseSelect" class="form_label_title">강의 분류</label>
+                    <div class="admin_select_row">
+                        <label for="courseMainSelect" class="form_label_subject">대주제 : </label>
+                        <select id="courseMainSelect" name="courseMain" class="admin_select_main" required>
+                            <option value="">- 대주제를 선택하세요 -</option>
+                            <option value="자가">자가 응급 처치</option>
+                            <option value="구조자">구조자 응급 처치</option>
+                        </select>
+
+                        <label for="courseSubSelect" class="form_label_subject">세부 주제 : </label>
+                        <select id="courseSubSelect" name="courseSub" class="admin_select_sub" required>
+                            <option value="">- 세부 주제를 선택하세요 -</option>
+                            <option value="출혈">출혈</option>
+                            <option value="기도막힘">기도 막힘</option>
+                            <option value="심정지">심정지</option>
+                            <option value="화상">화상</option>
+
+                        </select>
+                    </div>
+                    <p class="form_guide">※ 대주제를 먼저 선택한 후 세부 주제를 선택하세요.</p>
+                </div>
+
+                <!-- 과정 설명 -->
+                <div class="admin_form_group admin_textarea_group">
+                    <label for="courseDesc" class="form_label_title">강의 과정 설명</label>
+                    <textarea id="courseDesc" name="courseDesc" class="admin_textarea"
+                        placeholder="강의에 대한 간단한 소개를 입력하세요." rows="5" required></textarea>
+                </div>
+
+                <!-- 강의 썸네일 -->
+                <div class="admin_form_group course_thumb_group">
+                    <label for="courseThumb" class="form_label_title">강의 썸네일</label>
+                    <input type="file" id="addCourseThumb" name="courseThumb" accept="image/*" required>
+                    <p class="form_guide">※ 강의 목록에 표시될 대표 이미지를 등록하세요.</p>
+                    <div class="preview_box">
+                        <img id="addThumbPreview" src="" alt="썸네일 미리보기" style="display:none;">
+                    </div>
+                </div>
+
+                <!-- 강의 영상 -->
+                <div class="admin_form_group course_video_group">
+                    <label class="form_label_title">강의 영상</label>
+                    <div class="upload_box">
+                        <div class="upload_input">
+                            <!-- 영상 제목 -->
+                            <div class="upload_input_header">
+                                <label for="videoTitle1" class="form_label_videoTitle">제목 1</label>
+                                <input type="text" id="videoTitle1" name="videoTitle1" placeholder="영상 1의 제목을 입력하세요."
+                                       required>
+                            </div>
+                            <!-- 영상 파일 -->
+                            <div class="upload_input_box">
+                                <label for="courseVideo1">영상 1</label>
+                                <input type="file" id="courseVideo1" name="courseVideo1" accept="video/*" required>
+                            </div>
+                            <!-- 영상 자막 -->
+                            <textarea id="addCaption1" name="addCaption1" class="subtitle_input"
+                                      placeholder="영상 1의 자막 내용을 입력하세요."></textarea>
+                        </div>
+                        <div class="upload_input">
+                            <!-- 영상 제목 -->
+                            <div class="upload_input_header">
+                                <label for="videoTitle2" class="form_label_videoTitle">제목 2</label>
+                                <input type="text" id="videoTitle2" name="videoTitle2" placeholder="영상 2의 제목을 입력하세요."
+                                       >
+                            </div>
+                            <!-- 영상 파일 -->
+                            <div class="upload_input_box">
+                                <label for="courseVideo2">영상 2</label>
+                                <input type="file" id="courseVideo2" name="courseVideo2" accept="video/*">
+                            </div>
+                            <!-- 영상 자막 -->
+                            <textarea id="addCaption2" name="addCaption2" class="subtitle_input"
+                                      placeholder="영상 2의 자막 내용을 입력하세요."></textarea>
+                        </div>
+                        <div class="upload_input">
+                            <!-- 영상 제목 -->
+                            <div class="upload_input_header">
+                                <label for="videoTitle3" class="form_label_videoTitle">제목 3</label>
+                                <input type="text" id="videoTitle3" name="videoTitle3" placeholder="영상 3의 제목을 입력하세요."
+                                       >
+                            </div>
+                            <!-- 영상 파일 -->
+                            <div class="upload_input_box">
+                                <label for="courseVideo3">영상 3</label>
+                                <input type="file" id="courseVideo3" name="courseVideo3" accept="video/*">
+                            </div>
+                            <!-- 영상 자막 -->
+                            <textarea id="addCaption3" name="addCaption3" class="subtitle_input"
+                                      placeholder="영상 3의 자막 내용을 입력하세요."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 강의 등록, 취소 버튼 -->
+                <div class="admin_form_btns">
+                    <button type="submit" id="admin_course_submitBtn" class="admin_submit_btn">등록</button>
+                    <a th:href="@{/adminCourse/adminCourseList}" class="admin_cancel_btn">취소</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- 푸터(푸터 css) -->
+  <div th:replace="~{adminFooter :: footer}"></div>
+</body>
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 강의 등록 전용 js -->
+<script src="/adminjs/adminCourseAdd.js"></script>
+
+
+</html>

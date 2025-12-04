@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="lecturePopup">
+
+    <!-- 강의 재생창 전용 스타일 -->
+    <style>
+        /**** 강의 재생창 ****/
+        .lecture-popup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            inset: 0;
+            background: rgba(128, 128, 128, 0.25);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+        }
+
+        /* 컨테이너 */
+        .lecture-popup .lecture-container {
+            display: flex;
+            flex-direction: column;
+            width: 1600px;
+            min-height: 800px;
+            background: #ececec;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 닫기 버튼 */
+        .lecture-popup .close-btn {
+            position: absolute;
+            top: -7px;
+            right: 3px;
+            font-size: 35px;
+            color: #7d8891;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .lecture-popup .close-btn:hover {
+            color: #3b6e91;
+        }
+
+        /* 헤더 (제목 + 탭버튼) */
+        .lecture-popup .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .lecture-popup .lecture-title {
+            flex: 2;
+            background: #fff;
+            padding: 12px 15px;
+            font-size: 1.3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            color: #24323a;
+        }
+
+        .lecture-popup .tab-header {
+            display: flex;
+            gap: 5px;
+            flex: 1;
+        }
+
+        .lecture-popup .tab-btn {
+            flex: 1;
+            background: #c9dbe8;
+            border: none;
+            color: #24323a;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .lecture-popup .tab-btn.active {
+            background: #3b6e91;
+            color: #fff;
+        }
+
+        /* 내용 컨테이너 (좌: 영상/카테고리/내용, 우: 목차/메모/자료) */
+        .lecture-popup .tab-container {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .lecture-popup .lecture-left {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ▶ 재생 영역 꽉 채우기 (16:9) */
+        .lecture-popup .video-wrapper {
+            background: #000;
+            border-radius: 12px;
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 */
+            overflow: hidden;
+        }
+
+        .lecture-popup .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .lecture-popup .video-overlay-text {
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .lecture-popup .lecture-category {
+            display: flex;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid #e6edf2;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .lecture-popup .badge {
+            background: #e0e7ec;
+            color: #274e66;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .lecture-popup .lecture-text {
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 12px;
+            color: #333;
+        }
+
+        /* 오른쪽 컬럼 */
+        .lecture-popup .lecture-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* 탭 콘텐츠 */
+        .lecture-popup .tab-content {
+            display: none;
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .lecture-popup .tab-content.active {
+            display: block;
+        }
+
+        /* 메모창 */
+        .lecture-popup #memo textarea {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            border: 1px solid #b9c6d3;
+            padding: 12px;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #333333;
+            font-size: 0.95rem;
+            transition: 0.2s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        /* 자료 */
+        .lecture-popup .material-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lecture-popup .material-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 12px;
+            border: 1px solid #e6edf2;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: #f5f8fb;
+        }
+
+        .lecture-popup .download-link {
+            color: #3b6e91;
+            font-size: 18px;
+            text-decoration: none;
+        }
+        .lecture-popup .download-link:hover {
+            color: #274e66;
+        }
+
+        /* 하단 버튼 */
+        .lecture-popup .lecture-controls {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .lecture-popup .control-btn {
+            background: #3b6e91;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .lecture-popup .control-btn:hover {
+            background: #274e66;
+        }
+
+        /* 목차 – 2번째 시안 스타일 */
+        .lecture-popup .lecture-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* li는 간격만 담당 */
+        .lecture-popup .lecture-list li {
+            margin-bottom: 6px;
+        }
+
+        /* 버튼을 전체 폭 카드처럼 */
+        .lecture-popup .lecture-list .lecture-item {
+            width: 100%;
+            border: none;
+            background: #e6edf2;
+            border-radius: 8px;
+            padding: 12px 14px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .lecture-popup .lecture-list .lecture-item:focus {
+            outline: none;
+        }
+
+        /* 선택된 항목 */
+        .lecture-popup .lecture-list li.active .lecture-item {
+            background: #3b6e91;
+            color: #fff;
+        }
+
+        /* 번호 / 제목 텍스트 */
+        .lecture-popup .lecture-list .lecture-index {
+            font-weight: 600;
+            color: #6b7b8b;
+        }
+        .lecture-popup .lecture-list li.active .lecture-index {
+            color: #dbe3f2;
+        }
+        .lecture-popup .lecture-list .lecture-title-text {
+            flex: 1;
+        }
+
+        /* 잠긴(이전 차시 미완료) 항목 */
+        .lecture-popup .lecture-list li.locked {
+            opacity: 0.5;
+            cursor: default;
+            pointer-events: none; /* 클릭 불가 */
+        }
+        .lecture-popup .lecture-list li.locked .lecture-item {
+            background: #dde5ec;
+        }
+
+        /* 공통 제목 스타일 */
+        .lecture-popup h4 {
+            color: #3b6e91;
+        }
+
+    </style>
+
+    <div class="lecture-popup" id="lecturePopup">
+        <div class="lecture-container" id="lectureContainer">
+            <span class="close-btn" id="closePopup">&times;</span>
+
+            <!-- 상단 제목 + 탭 -->
+            <div class="header-row">
+                <h2 class="lecture-title"
+                    th:text="${lecture != null && lecture.courseTitle != null
+                              ? lecture.courseTitle
+                              : (lecture != null ? lecture.title : '강의 제목')}">
+                    강의 제목
+                </h2>
+
+                <div class="tab-header">
+                    <button class="tab-btn active" data-tab="list">강의 목차</button>
+                    <button class="tab-btn" data-tab="memo">메모</button>
+                </div>
+            </div>
+
+            <!-- 본문: 좌/우 2컬럼 -->
+            <div class="tab-container">
+
+                <!-- 왼쪽: 영상 + 카테고리 + 내용 -->
+                <div class="lecture-left">
+
+                    <div class="video-wrapper">
+                        <!-- 실제 영상 -->
+                        <video controls
+                               controlsList="nodownload noplaybackrate"
+                               oncontextmenu="return false;"
+                               th:if="${lecture != null}"
+                               th:src="@{/videos/{file}(file=${lecture.videoUrl})}">
+                        </video>
+
+
+                        <!-- 강의가 없는 경우 -->
+                        <div class="video-overlay-text" th:if="${lecture == null}">
+                            재생할 강의가 없습니다.
+                        </div>
+                    </div>
+
+                    <div class="lecture-category" th:if="${lecture != null}">
+                        <span class="badge"
+                              data-role="topCategory"
+                              th:text="${lecture.topCategory != null ? lecture.topCategory : '학습'}">
+                            학습
+                        </span>
+                        <span class="badge"
+                              data-role="midCategory"
+                              th:text="${lecture.midCategory != null ? lecture.midCategory : '온라인'}">
+                            온라인
+                        </span>
+                    </div>
+
+                    <div class="lecture-content">
+                        <h4>강의 내용</h4>
+                        <p class="lecture-text"
+                           th:text="${lecture != null && lecture.summary != null
+                 ? lecture.summary
+                 : '이곳에 강의 요약, 설명 또는 교안 내용이 들어갑니다.'}">
+                            이곳에 강의 요약, 설명 또는 교안 내용이 들어갑니다.
+                        </p>
+                    </div>
+
+
+                </div>
+
+                <!-- 오른쪽: 강의 목차 / 메모 / 자료 + 수강완료 버튼 -->
+                <div class="lecture-right">
+
+                    <!-- 강의 목차 탭 -->
+                    <div class="tab-content active" id="list">
+                        <ol class="lecture-list">
+                            <li th:each="lec : ${lectureList}"
+                                th:classappend="${lecture != null and lec.courseLectureId == lecture.courseLectureId} ? ' active'">
+                                <button type="button" class="lecture-item"
+                                        th:data-course-lecture-id="${lec.courseLectureId}"
+                                        th:data-course-id="${lec.courseId}"
+                                        th:data-enrollment-id="${enrollmentId}"
+                                        th:data-video-url="${lec.videoUrl}"
+                                        th:data-top-category="${lec.topCategory}"
+                                        th:data-mid-category="${lec.midCategory}"
+                                        th:data-summary="${lec.summary}">
+                                    <!-- 1. 오리엔테이션 이런 느낌 -->
+                                    <span class="lecture-index"
+                                          th:text="${lec.lectureNo + '.'}">1.</span>
+                                    <span class="lecture-title-text"
+                                          th:text="${lec.title}">오리엔테이션</span>
+                                </button>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <!-- 메모 탭 -->
+                    <div class="tab-content" id="memo">
+                        <textarea placeholder="학습 중 메모를 작성하세요."></textarea>
+                    </div>
+
+
+
+                    <!-- 하단 버튼 -->
+                    <div class="lecture-controls">
+                        <button class="control-btn" id="btnLectureDone" type="button">
+                            수강 완료
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

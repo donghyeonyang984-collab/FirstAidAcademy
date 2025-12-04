@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <section class="notice-detail" th:if="${notice != null}">
+        <div class="detail-header">
+            <h2 class="notice-title"
+                th:text="${notice.title}">
+                공지사항 제목
+            </h2>
+
+            <a th:href="@{/notice(page=${page}, q=${q})}">
+                <button class="btn-list" type="button">목록</button>
+            </a>
+        </div>
+
+        <div class="detail-info">
+            <span>
+                작성자 :
+                <span th:text="${notice.writerName != null ? notice.writerName : '관리자'}">
+                    관리자
+                </span>
+            </span>
+            |
+            <span>
+                작성일 :
+                <span th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd')}">
+                    2025-11-18
+                </span>
+            </span>
+        </div>
+
+        <div class="detail-content">
+            <!-- HTML 포함 가능하므로 utext -->
+            <p th:utext="${notice.contentHtml}">
+                내용이 여기에 들어갑니다.
+            </p>
+        </div>
+        <div class="detail-footer">
+
+            <!-- 이전글 -->
+            <button class="btn-nav"
+                    th:if="${prevId != null}"
+                    th:onclick="|location.href='@{/notice/{id}(id=${prevId})}'|">
+                이전글
+            </button>
+            <button class="btn-nav"
+                    th:if="${prevId == null}"
+                    disabled>
+                이전글
+            </button>
+
+            <!-- 다음글 -->
+            <button class="btn-nav"
+                    th:if="${nextId != null}"
+                    th:onclick="|location.href='@{/notice/{id}(id=${nextId})}'|">
+                다음글
+            </button>
+            <button class="btn-nav"
+                    th:if="${nextId == null}"
+                    disabled>
+                다음글
+            </button>
+        </div>
+
+    </section>
+
+</th:block>
+
+</body>
+</html>

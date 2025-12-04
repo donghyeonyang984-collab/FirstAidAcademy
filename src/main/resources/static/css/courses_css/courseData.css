@@ -1,0 +1,117 @@
+/* 자료 리스트 */
+.data-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+/* 자료 카드 */
+.data-card {
+    flex: 0 0 45%;
+    background: #ffffff;
+    border: 1px solid #c7c7c7;
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+    transition: 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.data-card:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+}
+
+/* 상단 구조 */
+.data-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.data-title h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #24323a;
+    margin-bottom: 6px;
+}
+
+.data-tags span {
+    background: #e7eff5;
+    color:#3b6e91;
+    font-size: 13px;
+    border-radius: 12px;
+    padding: 3px 8px;
+    margin-right: 5px;
+}
+
+.file-type {
+    font-size: 15px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.file-type i {
+    color: #3b6e91;
+    cursor: pointer;
+}
+
+/* 본문 내용 */
+.data-desc {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+    margin: 10px 0 15px;
+    flex-grow: 1;
+}
+
+/* 하단 정보 */
+.data-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #777;
+    border-top: 1px solid #e8eef2;
+    padding-top: 8px;
+}
+/* 공통 검색 박스 */
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1; /* 남는 공간 전체를 검색창이 차지 */
+}
+/* ------------------------- */
+/* 페이지 제목 */
+/* ------------------------- */
+.course-page-title {
+    margin-bottom: 16px;
+}
+
+.course-page-title h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}
+/* ------------------------- */
+/* 기본 레이아웃 구조 */
+/* ------------------------- */
+.container {
+    display: flex;
+    min-height: 100vh;
+    background: #f9f9f9;
+}
+
+/* 메인 컨텐츠 */
+.main {
+    flex: 1;
+    padding: 40px;
+    background: #f9f9f9;
+}

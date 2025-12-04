@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="sidebar">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            소식센터
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <div class="sidebar-item">
+                <a th:href="@{/pages/notice.html}">공지사항</a>
+                <i class="fa-solid fa-bullhorn"></i>
+            </div>
+
+            <div class="sidebar-item">
+                <a th:href="@{/pages/faq.html}">FAQ</a>
+                <i class="fa-regular fa-circle-question"></i>
+            </div>
+
+            <div class="sidebar-item">
+                <a th:href="@{/pages/news.html}">보도자료</a>
+                <i class="fa-solid fa-newspaper"></i>
+            </div>
+
+        </nav>
+    </aside>
+
+</th:block>
+
+</body>
+</html>

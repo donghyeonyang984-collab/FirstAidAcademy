@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 관리</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 공지사항 전용 -->
+    <link rel="stylesheet" href="/admincss/adminNotice.css">
+</head>
+
+<body>
+  <!-- 헤더(헤더 css) -->
+    <div th:replace="~{adminHeader :: header}"></div>
+    <!-- 사이드바(사이드바 css, 공통 js) -->
+    <div th:replace="~{adminSidebar :: sidebar}"></div>
+    <main id="container">
+        <!-- 맨 위 타이틀(공통 css) -->
+        <h3 class="main_title">공지사항</h3>
+        <form th:action="@{/adminNotice/adminNotice}" method="get" class="admin_tot_srch_box">
+            <div class="admin_totCnt_box">
+                <p>
+                    Total :
+                    <span id="admin_tot_cnt" th:text="${totalCount}">0</span> 건
+                </p>
+                <select id="admin_row_select" name="size">
+                    <option th:value="10" th:selected="${size == 10}">10</option>
+                    <option th:value="20" th:selected="${size == 20}">20</option>
+                    <option th:value="30" th:selected="${size == 30}">30</option>
+                </select>
+                <span>건씩 보기</span>
+            </div>
+
+            <!-- 공지 검색 + 등록 버튼 -->
+            <div class="admin_notice_srch_group">
+                <div class="admin_srch_field">
+                    <input type="text"
+                           name="q"
+                           class="admin_srch_input"
+                           placeholder="공지사항 제목을 입력해 주세요."
+                           th:value="${q}">
+                    <button type="submit" class="admin_srch_icon">
+                        <img src="/images/srchImg.png" alt="검색">
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- 공지사항 목록 테이블 (공통 css) -->
+        <div id="admin_notice_box" class="admin_table_box">
+            <table id="admin_notice_table" class="admin_table_cont">
+                <thead>
+                    <tr>
+                        <th style="width: 70px;">No.</th>
+                        <th style="width: 230px;">제목</th>
+                        <th style="width: 290px;">내용</th>
+                        <th style="width: 130px;">등록자</th>
+                        <th style="width: 130px;">등록일</th>
+                        <th style="width: 100px;">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="n, stat : ${notices}">
+                    <!-- No. (역순 번호) -->
+                    <td th:text="${totalCount - ((page - 1) * size) - stat.index}">
+                        1
+                    </td>
+
+                    <!-- 제목 -->
+                    <td>
+                        <a th:href="@{|/adminNotice/adminNoticeEdit/${n.noticeId}|}"
+                           th:text="${n.title}">
+                            공지 제목
+                        </a>
+                    </td>
+
+                    <!-- 내용 요약 (content_html) -->
+                    <td th:text="${#strings.abbreviate(n.contentHtml, 40)}">
+                        공지 내용 미리보기
+                    </td>
+
+                    <!-- 등록자 (user_id 그대로 표시) -->
+                    <td th:text="${n.writerName}">1</td>
+
+                    <!-- 등록일 -->
+                    <td th:text="${#temporals.format(n.createdAt, 'yyyy-MM-dd')}">
+                        2025-11-17
+                    </td>
+
+                    <!-- 관리 -->
+                    <td>
+                        <form th:action="@{|/adminNotice/delete/${n.noticeId}|}"
+                              method="post"
+                              style="display:inline;">
+                            <button type="submit"
+                                    class="admin_delete_btn"
+                                    onclick="return confirm('정말 삭제하시겠습니까?');">
+                                삭제
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                <!-- 데이터가 없을 때 (컬럼 6개에 맞춰 colspan 수정) -->
+                <tr th:if="${notices == null or #lists.isEmpty(notices)}">
+                    <td colspan="6">등록된 공지사항이 없습니다.</td>
+                </tr>
+            </table>
+        </div>
+        <!-- 공지사항 목록 페이징 버튼(공통 css,js) -->
+        <div id="pagination" class="paging_btn paging_simple" th:if="${totalPages > 1}">
+
+            <!-- 이전 화살표 -->
+            <!-- 첫 페이지면 비활성화 -->
+            <span th:if="${page <= 1}" class="page_arrow prev disabled">&lsaquo;</span>
+            <a th:if="${page > 1}"
+               th:href="@{/adminNotice/adminNotice(page=${page - 1}, size=${size}, q=${q})}"
+               class="page_arrow prev">
+                &lsaquo;
+            </a>
+
+            <!-- 현재 / 전체 -->
+            <span class="page_status">
+    <span th:text="${page}">1</span>
+    <span>/</span>
+    <span th:text="${totalPages}">2</span>
+  </span>
+
+            <!-- 다음 화살표 -->
+            <!-- 마지막 페이지면 비활성화 -->
+            <span th:if="${page >= totalPages}" class="page_arrow next disabled">&rsaquo;</span>
+            <a th:if="${page < totalPages}"
+               th:href="@{/adminNotice/adminNotice(page=${page + 1}, size=${size}, q=${q})}"
+               class="page_arrow next">
+                &rsaquo;
+            </a>
+
+        </div>
+    </main>
+    <!-- 푸터(푸터 css) -->
+  <div th:replace="~{adminFooter :: footer}"></div>
+</body>
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 공지사항 전용 js -->
+<!--<script src="/adminjs/adminNotice.js"></script>-->
+
+</html>

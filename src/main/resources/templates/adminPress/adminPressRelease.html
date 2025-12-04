@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보도자료</title>
+    <!-- 헤더 css -->
+    <link rel="stylesheet" href="/admincss/adminHeader.css">
+    <!-- 푸터 css -->
+    <link rel="stylesheet" href="/admincss/adminFooter.css">
+    <!-- 사이드바 css -->
+    <link rel="stylesheet" href="/admincss/adminSidebar.css">
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/admincss/adminCommon.css">
+    <!-- 보도자료 목록 전용 -->
+    <link rel="stylesheet" href="/admincss/adminPressRelease.css">
+</head>
+
+<body>
+<!-- 헤더(헤더 css) -->
+<div th:replace="~{adminHeader :: header}"></div>
+<!-- 사이드바(사이드바 css, 공통 js) -->
+<div th:replace="~{adminSidebar :: sidebar}"></div>
+
+<main id="container">
+    <!-- 맨 위 타이틀(공통 css) -->
+    <h3 class="main_title">보도자료</h3>
+
+    <!-- 🔹 검색 + 페이지 사이즈 선택 영역을 form 으로 변경 -->
+    <form class="admin_tot_srch_box"
+          th:action="@{/adminPress}"
+          method="get">
+
+        <div class="admin_totCnt_box">
+            <p>
+                Total :
+                <!-- DB에서 넘어온 totalCount 사용 -->
+                <span id="admin_tot_cnt" th:text="${totalCount}">0</span>
+                건
+            </p>
+            <!-- size 파라미터 추가 -->
+            <select id="admin_row_select"
+                    name="size"
+                    onchange="this.form.submit()">
+                <option value="10" th:selected="${size == 10}">10</option>
+                <option value="20" th:selected="${size == 20}">20</option>
+                <option value="30" th:selected="${size == 30}">30</option>
+            </select>
+            <span>건씩 보기</span>
+        </div>
+
+        <!-- 보도자료 검색 -->
+        <div class="admin_srch_field">
+            <input type="text"
+                   name="press_keyword"
+                   class="admin_srch_input"
+                   placeholder="보도자료 제목을 입력해 주세요."
+                   th:value="${keyword}">
+            <button type="submit" class="admin_srch_icon">
+                <img src="/images/srchImg.png" alt="검색">
+            </button>
+        </div>
+    </form>
+
+    <!-- 보도자료 목록 테이블 (공통 css) -->
+    <div id="admin_press_box" class="admin_table_box">
+        <table id="admin_press_table" class="admin_table_cont">
+            <thead>
+            <tr>
+                <th style="width: 60px;">No.</th>
+                <th style="width: 200px;">제목</th>
+                <th style="width: 200px;">내용</th>
+                <th style="width: 120px;">URL</th>
+                <th style="width: 100px;">등록자</th>
+                <th style="width: 100px;">등록일</th>
+                <th style="width: 80px;">관리</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- DB에서 넘어온 pressList가 비었을 때 -->
+            <tr th:if="${#lists.isEmpty(pressList)}">
+                <td colspan="7" style="text-align: center;">등록된 보도자료가 없습니다.</td>
+            </tr>
+
+            <!-- DB에서 넘어온 pressList 출력 -->
+            <tr th:each="press, stat : ${pressList}">
+                <!-- No. : 전체 건수 기준 최신순 번호 -->
+                <td th:text="${totalCount - ((page - 1) * size) - stat.index}">1</td>
+
+                <!-- 제목 -->
+                <td>
+                    <a th:href="@{|/adminPress/${press.pressReleaseId}/edit|}"
+                       th:text="${press.title}">
+                        보도자료 제목
+                    </a>
+                </td>
+
+                <!-- 내용(요약) -->
+                <td th:text="${#strings.abbreviate(press.contentHtml, 40)}">
+                    내용 요약
+                </td>
+
+                <!-- 첨부파일(링크 URL) -->
+                <td>
+                    <a th:if="${press.linkUrl != null and !#strings.isEmpty(press.linkUrl)}"
+                       th:href="${press.linkUrl}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        바로가기
+                    </a>
+                    <span th:if="${press.linkUrl == null or #strings.isEmpty(press.linkUrl)}">-</span>
+                </td>
+
+                <!-- 등록자 -->
+                <td th:text="${press.writerName}">
+                    관리자
+                </td>
+
+                <!-- 등록일 -->
+                <td th:text="${#temporals.format(press.createdAt, 'yyyy-MM-dd')}">
+                    2025-11-19
+                </td>
+
+                <!-- 관리(삭제) -->
+                <td>
+                    <form th:action="@{|/adminPress/${press.pressReleaseId}/delete|}"
+                          method="post"
+                          style="display:inline-block;"
+                          onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                        <button type="submit" class="admin_delete_btn">삭제</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 페이징 -->
+    <div id="pagination" class="paging_btn paging_simple" th:if="${totalPages > 1}">
+
+        <!-- 이전 -->
+        <span th:if="${page <= 1}" class="page_arrow prev disabled">&lsaquo;</span>
+        <a th:if="${page > 1}"
+           th:href="@{/adminPress(page=${page - 1}, size=${size}, press_keyword=${keyword})}"
+           class="page_arrow prev">
+            &lsaquo;
+        </a>
+
+        <!-- 현재 / 전체 -->
+        <span class="page_status">
+            <span th:text="${page}">1</span>
+            <span>/</span>
+            <span th:text="${totalPages}">1</span>
+        </span>
+
+        <!-- 다음 -->
+        <span th:if="${page >= totalPages}" class="page_arrow next disabled">&rsaquo;</span>
+        <a th:if="${page < totalPages}"
+           th:href="@{/adminPress(page=${page + 1}, size=${size}, press_keyword=${keyword})}"
+           class="page_arrow next">
+            &rsaquo;
+        </a>
+
+    </div>
+</main>
+
+<!-- 푸터(푸터 css) -->
+<div th:replace="~{adminFooter :: footer}"></div>
+</body>
+
+<!-- 공통 js -->
+<script src="/adminjs/adminHtml.js"></script>
+<script src="/adminjs/adminCommon.js"></script>
+<!-- 보도자료 목록 전용 js -->
+<!--<script src="/adminjs/adminPressRelease.js"></script>-->
+
+</html>

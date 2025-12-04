@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="content">
+
+    <section class="common-section">
+        <div class="form-box">
+
+            <div class="text-box">
+                <h2>비밀번호 재설정</h2>
+                비밀번호 재설정을 위해<br />
+                아래 정보를 정확하게 입력해주세요.
+            </div>
+
+            <form class="form" th:action="@{/login/resetPW}" method="post" th:object="${resetPwForm}">
+                <div class="form-row">
+                    <p>아이디 <span class="required">*</span></p>
+                    <input type="text" th:field="*{username}" placeholder="아이디" required />
+                </div>
+
+                <div class="form-row">
+                    <p>이름 <span class="required">*</span></p>
+                    <input type="text" th:field="*{name}" placeholder="이름" required />
+                </div>
+
+                <div class="form-row">
+                    <p>새 비밀번호 <span class="required">*</span></p>
+                    <input type="password" th:field="*{newPassword}" placeholder="새 비밀번호" required />
+                </div>
+
+                <div class="form-row">
+                    <p>새 비밀번호 확인 <span class="required">*</span></p>
+                    <input type="password" th:field="*{confirmPassword}" placeholder="새 비밀번호 확인" required />
+                </div>
+
+                <div th:if="${error}" class="error-msg" th:text="${error}"></div>
+
+                <div class="findBtn">
+                    <button type="submit" class="common-btn1">비밀번호 재설정</button>
+                </div>
+            </form>
+
+        </div>
+    </section>
+
+</th:block>
+
+</body>
+</html>

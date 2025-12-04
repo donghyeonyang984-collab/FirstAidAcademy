@@ -1,0 +1,31 @@
+<!-- src/main/resources/templates/fragments/sidebarG.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="sidebar">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            게임 · 훈련
+        </div>
+
+        <nav class="sidebar-menu">
+            <!-- 1. 응급처치 게임 소개 -->
+            <div class="sidebar-item">
+                <a th:href="@{/game/aboutGame.html}">
+                    응급처치 게임 소개
+                </a>
+                <i class="fa-solid fa-info-circle"></i>
+            </div>
+
+            <!-- 2. 나의 배지 보관함 -->
+            <div class="sidebar-item">
+                <a th:href="@{/game/myGame.html}">
+                    나의 배지 보관함
+                </a>
+                <i class="fa-solid fa-medal"></i>
+            </div>
+        </nav>
+    </aside>
+</th:block>
+</body>
+</html>
